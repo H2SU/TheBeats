@@ -284,7 +284,7 @@ public class Beat extends JFrame {
 		game = new Game(trackList.get(nowSelected).gettitleName(),trackList.get(nowSelected).getGameMusic() );
 		game.start();
 		setFocusable(true);
-		
+		 
 	}
 	public void backMain() {
 		isMainScreen =true;
@@ -297,7 +297,7 @@ public class Beat extends JFrame {
 		isGameScreen = false;
 		game.close();
 	}
-	
+	 
 	public static void enterMain() {
 		background = new ImageIcon(Main.class.getResource("../images/background1.png"))
 				.getImage(); 
