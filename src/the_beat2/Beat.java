@@ -13,8 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import the_beat.Track;
-
 public class Beat extends JFrame {
 
 	private Image screenImage;

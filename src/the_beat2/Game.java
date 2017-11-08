@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-import the_beat.NoteBeat;
-
 public class Game extends Thread{
 	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameInfo.png")).getImage(); 
 	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgementLine.png")).getImage(); 
