@@ -45,7 +45,7 @@ public class Judge {
    public String calculateGrade(){
       int max = (int)((perfect*1 + good*0.7 + bad*0.3 + miss*0)/noteCnt*100);
       
-      System.out.println("ì „ì²´ë…¸íŠ¸ê°œìˆ˜:"+noteCnt+" ,í¼í™íŠ¸:"+perfect+", êµ¿: "+ good+" ,ë±ƒ: "+bad+" ,ë¯¸ìŠ¤: "+miss);
+      System.out.println("ÀüÃ¼³ëÆ®°³¼ö:"+noteCnt+" ,ÆÛÆåÆ®:"+perfect+", ±Â: "+ good+" ,¹î: "+bad+" ,¹Ì½º: "+miss);
       
       if(max == 100) {
 		return grade[0];

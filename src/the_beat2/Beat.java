@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import the_beat.Track;
+
 public class Beat extends JFrame {
 
 	private Image screenImage;
@@ -51,7 +53,7 @@ public class Beat extends JFrame {
 	
 	public Beat() {
 		trackList.add(new Track("elise1.png", "eliseselect.png",
-				"selectedImage.png", "elise.mp3", "elise.mp3", "elise"));//0
+				"selectedImage.png", "elise2.mp3", "elise.mp3", "elise"));//0
 		trackList.add(new Track("summer1.png", "summerselect.png",
 				"selectedImage.png", "summer.mp3", "summer.mp3", "summer"));//1
 		trackList.add(new Track("canon1.png", "canonselect.png",
@@ -309,6 +311,6 @@ public class Beat extends JFrame {
 		selectTrack(0);
 	}
 	
-	
+	 
 
 }

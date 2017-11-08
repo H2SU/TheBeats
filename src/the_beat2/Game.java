@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+import the_beat.NoteBeat;
+
 public class Game extends Thread{
 	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameInfo.png")).getImage(); 
 	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgementLine.png")).getImage(); 
@@ -140,28 +142,207 @@ public class Game extends Thread{
 	public void dropNotes() {
 		NoteBeat [] beats= null;
 		if(titleName.equals("elise")){
-			int startTime = 1000 - Main.REACH_TIME * 1000 ;
-			int gap = 125;
+			int startTime = 400;
+			int gap = 75;
 			beats = new NoteBeat[] {
-					new NoteBeat(startTime+gap*2, "K"),
-                    new NoteBeat(startTime+gap*4, "S"),
-                    new NoteBeat(startTime+gap*6, "J"),
-                    new NoteBeat(startTime+gap*8, "S"),
-                    new NoteBeat(startTime+gap*10, "F"),
-                    new NoteBeat(startTime+gap*12, "J"),
-                    new NoteBeat(startTime+gap*14, "S"),
-                    new NoteBeat(startTime+gap*16, "K"),
-                    new NoteBeat(startTime+gap*18, "F"),
-                    new NoteBeat(startTime+gap*20, "L"),
-                    new NoteBeat(startTime+gap*22, "F"),
-                    new NoteBeat(startTime+gap*24, "S"),
-                    new NoteBeat(startTime+gap*26, "L"),
-                    new NoteBeat(startTime+gap*28, "D"),
-                    new NoteBeat(startTime+gap*30, "F"),
-                    
-                  
-                
-                  
+					new NoteBeat(startTime, "L"),
+					new NoteBeat(startTime+gap*2,"K" ),
+					new NoteBeat(startTime+gap*4,"L" ),
+					new NoteBeat(startTime+gap*6,"K" ),
+					new NoteBeat(startTime+gap*8,"L" ),
+					new NoteBeat(startTime+gap*10,"F" ),
+					new NoteBeat(startTime+gap*12,"J" ),
+					new NoteBeat(startTime+gap*14,"D" ),
+					new NoteBeat(startTime+gap*16,"S" ),
+					new NoteBeat(startTime+gap*18,"D" ),
+					
+					new NoteBeat(startTime+gap*24,"D" ),
+					new NoteBeat(startTime+gap*26,"F" ),
+					new NoteBeat(startTime+gap*28,"J" ),
+					new NoteBeat(startTime+gap*30,"K" ),
+					
+					new NoteBeat(startTime+gap*38,"F" ),
+					new NoteBeat(startTime+gap*40,"J" ),
+					new NoteBeat(startTime+gap*42,"K" ),
+					new NoteBeat(startTime+gap*44,"L" ),
+					
+					new NoteBeat(startTime+gap*51,"S" ),
+					new NoteBeat(startTime+gap*53,"L" ),
+					new NoteBeat(startTime+gap*55,"K" ),
+					new NoteBeat(startTime+gap*57,"L" ),
+					new NoteBeat(startTime+gap*59,"K" ),
+					new NoteBeat(startTime+gap*61,"L" ),
+					new NoteBeat(startTime+gap*63,"F" ),
+					new NoteBeat(startTime+gap*65,"J" ),
+					new NoteBeat(startTime+gap*67,"D" ),
+					new NoteBeat(startTime+gap*69,"S" ),
+					new NoteBeat(startTime+gap*71,"D" ),
+					
+					new NoteBeat(startTime+gap*81,"D" ),
+					new NoteBeat(startTime+gap*83,"F" ),
+					new NoteBeat(startTime+gap*85,"J" ),
+					new NoteBeat(startTime+gap*87,"K" ),
+					
+					new NoteBeat(startTime+gap*95,"S" ),
+					new NoteBeat(startTime+gap*97,"L" ),
+					new NoteBeat(startTime+gap*99,"K" ),
+					new NoteBeat(startTime+gap*101,"J" ),
+					
+					new NoteBeat(startTime+gap*113,"L" ),
+					new NoteBeat(startTime+gap*115,"K" ),
+					new NoteBeat(startTime+gap*117,"L" ),
+					new NoteBeat(startTime+gap*119,"K" ),
+					new NoteBeat(startTime+gap*121,"L" ),
+					new NoteBeat(startTime+gap*123,"F" ),
+					new NoteBeat(startTime+gap*125,"J" ),
+					new NoteBeat(startTime+gap*127,"D" ),
+					new NoteBeat(startTime+gap*129,"S" ),
+					new NoteBeat(startTime+gap*131,"D" ),
+					
+					new NoteBeat(startTime+gap*141,"D" ),
+					new NoteBeat(startTime+gap*143,"F" ),
+					new NoteBeat(startTime+gap*145,"J" ),
+					new NoteBeat(startTime+gap*147,"K" ),
+					
+					new NoteBeat(startTime+gap*155,"F" ),
+					new NoteBeat(startTime+gap*157,"J" ),
+					new NoteBeat(startTime+gap*159,"K" ),
+					new NoteBeat(startTime+gap*161,"L" ),
+				
+					new NoteBeat(startTime+gap*168,"S" ),
+					new NoteBeat(startTime+gap*170,"L" ),
+					new NoteBeat(startTime+gap*172,"K" ),
+					new NoteBeat(startTime+gap*174,"L" ),
+					new NoteBeat(startTime+gap*176,"K" ),
+					new NoteBeat(startTime+gap*178,"L" ),
+					new NoteBeat(startTime+gap*180,"F" ),
+					new NoteBeat(startTime+gap*182,"J" ),
+					new NoteBeat(startTime+gap*184,"D" ),
+					new NoteBeat(startTime+gap*186,"S" ),  
+					new NoteBeat(startTime+gap*188,"D" ),
+					
+					new NoteBeat(startTime+gap*198,"D" ),
+					new NoteBeat(startTime+gap*200,"F" ),
+					new NoteBeat(startTime+gap*202,"J" ),
+					new NoteBeat(startTime+gap*204,"K" ),
+					
+					new NoteBeat(startTime+gap*212,"S" ),
+					new NoteBeat(startTime+gap*214,"L" ),
+					new NoteBeat(startTime+gap*216,"K" ),
+					new NoteBeat(startTime+gap*218,"J" ),
+					
+					new NoteBeat(startTime+gap*226,"D" ),
+					new NoteBeat(startTime+gap*228,"F" ),
+					new NoteBeat(startTime+gap*230,"J" ),
+					new NoteBeat(startTime+gap*232,"K" ),
+					
+					new NoteBeat(startTime+gap*240,"S" ),
+					new NoteBeat(startTime+gap*242,"L" ),
+					new NoteBeat(startTime+gap*244,"K" ),
+					new NoteBeat(startTime+gap*246,"J" ),
+					
+					new NoteBeat(startTime+gap*254,"D" ),
+					new NoteBeat(startTime+gap*256,"K" ),
+					new NoteBeat(startTime+gap*258,"J" ),
+					new NoteBeat(startTime+gap*260,"F" ),
+					
+					new NoteBeat(startTime+gap*268,"D" ),
+					new NoteBeat(startTime+gap*270,"L" ),
+					new NoteBeat(startTime+gap*272,"K" ),
+					new NoteBeat(startTime+gap*274,"J" ),
+					 
+					new NoteBeat(startTime+gap*290,"K" ),
+					new NoteBeat(startTime+gap*292,"L" ),
+					new NoteBeat(startTime+gap*294,"K" ),
+					new NoteBeat(startTime+gap*296,"L" ),
+					new NoteBeat(startTime+gap*298,"K" ),
+					new NoteBeat(startTime+gap*300,"L" ),
+					new NoteBeat(startTime+gap*302,"K" ),
+					new NoteBeat(startTime+gap*304,"L" ),
+					new NoteBeat(startTime+gap*306,"K" ),
+					new NoteBeat(startTime+gap*308,"L" ),
+					new NoteBeat(startTime+gap*310,"K" ),
+					new NoteBeat(startTime+gap*312,"L" ),
+					new NoteBeat(startTime+gap*314,"K" ),
+					new NoteBeat(startTime+gap*316,"L" ),
+					new NoteBeat(startTime+gap*318,"K" ),
+					
+					new NoteBeat(startTime+gap*320,"F" ),
+					new NoteBeat(startTime+gap*322,"J" ),
+					new NoteBeat(startTime+gap*324,"K" ),
+					new NoteBeat(startTime+gap*326,"L" ),  
+					new NoteBeat(startTime+gap*328,"D" ),
+					
+					new NoteBeat(startTime+gap*336,"D" ),
+					new NoteBeat(startTime+gap*438,"L" ),
+					new NoteBeat(startTime+gap*440,"S" ),
+					new NoteBeat(startTime+gap*444,"D" ),
+					new NoteBeat(startTime+gap*448,"J" ),
+					new NoteBeat(startTime+gap*453,"S" ),
+					new NoteBeat(startTime+gap*455,"D" ),
+					new NoteBeat(startTime+gap*458,"J" ),
+					new NoteBeat(startTime+gap*460,"K" ),
+					new NoteBeat(startTime+gap*464,"L" ),
+					new NoteBeat(startTime+gap*470,"S" ),
+					new NoteBeat(startTime+gap*472,"D" ),
+					new NoteBeat(startTime+gap*473,"D" ),
+					new NoteBeat(startTime+gap*474,"D" ),
+					new NoteBeat(startTime+gap*477,"F" ),
+					new NoteBeat(startTime+gap*480,"F" ),
+					new NoteBeat(startTime+gap*484,"S" ),
+					new NoteBeat(startTime+gap*492,"D" ),
+					new NoteBeat(startTime+gap*496,"J" ),
+					new NoteBeat(startTime+gap*500,"K" ),
+					new NoteBeat(startTime+gap*502,"L" ),
+					new NoteBeat(startTime+gap*504,"S" ),
+					new NoteBeat(startTime+gap*506,"D" ),
+					new NoteBeat(startTime+gap*508,"J" ),
+					new NoteBeat(startTime+gap*510,"S" ),
+					new NoteBeat(startTime+gap*514,"D" ),
+					new NoteBeat(startTime+gap*520,"J" ),
+					new NoteBeat(startTime+gap*525,"K" ),
+					new NoteBeat(startTime+gap*530,"L" ),
+					new NoteBeat(startTime+gap*532,"S" ),
+					new NoteBeat(startTime+gap*534,"D" ),
+					new NoteBeat(startTime+gap*536,"D" ),
+					new NoteBeat(startTime+gap*539,"S" ),
+					new NoteBeat(startTime+gap*544,"D" ),
+					new NoteBeat(startTime+gap*548,"J" ),
+					new NoteBeat(startTime+gap*555,"K" ),
+					new NoteBeat(startTime+gap*558,"L" ),
+					new NoteBeat(startTime+gap*560,"K" ),
+					new NoteBeat(startTime+gap*562,"J" ),
+					new NoteBeat(startTime+gap*569,"D" ),
+					new NoteBeat(startTime+gap*572,"F" ),
+					new NoteBeat(startTime+gap*574,"F" ),
+					new NoteBeat(startTime+gap*577,"S" ),
+					new NoteBeat(startTime+gap*580,"D" ),
+					new NoteBeat(startTime+gap*583,"J" ),
+					new NoteBeat(startTime+gap*585,"K" ),
+					new NoteBeat(startTime+gap*588,"L" ),
+					new NoteBeat(startTime+gap*560,"S" ),
+					new NoteBeat(startTime+gap*562,"D" ),
+					new NoteBeat(startTime+gap*564,"J" ),
+					new NoteBeat(startTime+gap*570,"S" ),
+					new NoteBeat(startTime+gap*574,"D" ),
+					new NoteBeat(startTime+gap*578,"J" ),
+					new NoteBeat(startTime+gap*580,"K" ),
+					new NoteBeat(startTime+gap*583,"L" ),
+					new NoteBeat(startTime+gap*585,"S" ),
+					new NoteBeat(startTime+gap*588,"D" ),
+					new NoteBeat(startTime+gap*590,"J" ),
+					new NoteBeat(startTime+gap*592,"J" ),
+					new NoteBeat(startTime+gap*600,"K" ),
+					new NoteBeat(startTime+gap*602,"L" ),
+					new NoteBeat(startTime+gap*604,"S" ),
+					new NoteBeat(startTime+gap*606,"D" ),
+					new NoteBeat(startTime+gap*610,"J" ),
+					new NoteBeat(startTime+gap*614,"S" ),
+					new NoteBeat(startTime+gap*620,"F" ),
+					new NoteBeat(startTime+gap*624,"F" ),
+					new NoteBeat(startTime+gap*630,"S" ),
+					new NoteBeat(startTime+gap*640,"D" ),
+					new NoteBeat(startTime+gap*644,"L" ),
                  
 			};
 		}
@@ -863,7 +1044,7 @@ public class Game extends Thread{
 	         if (input.equals(note.getNoteType())) {
 	            String s = "";
 	            judgeEvent(s = note.judge());
-	            judge.plusScore(s); // 점수 더하기
+	            judge.plusScore(s); // �젏�닔 �뜑�븯湲�
 	            break;
 	         }
 	      }
@@ -881,7 +1062,7 @@ public class Game extends Thread{
 			else if(judge.equals("Perfact")) {
 				judgeImage = new ImageIcon(Main.class.getResource("../images/perfact.png")).getImage(); 
 			}
-			
+			 
 		}
 	}
 
