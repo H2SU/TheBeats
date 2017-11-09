@@ -25,27 +25,27 @@ public class MyKeyListener extends KeyAdapter {
 			}
 			break;
 		case KeyEvent.VK_S:
-			TheBeat.game.pressS();
+			TheBeat.game.pressKey('S');
 			break;
 			
 		case KeyEvent.VK_D:
-			TheBeat.game.pressD();
+			TheBeat.game.pressKey('D');
 			break;
 
 		case KeyEvent.VK_F:
-			TheBeat.game.pressF();
+			TheBeat.game.pressKey('F');
 			break;
 			
 		case KeyEvent.VK_J:
-			TheBeat.game.pressJ();
+			TheBeat.game.pressKey('J');
 			break;
 			
 		case KeyEvent.VK_K:
-			TheBeat.game.pressK();
+			TheBeat.game.pressKey('K');
 			break;
 			
 		case KeyEvent.VK_L:
-			TheBeat.game.pressL();
+			TheBeat.game.pressKey('L');
 			break;
 
 		}
@@ -60,27 +60,27 @@ public class MyKeyListener extends KeyAdapter {
 		
 		switch(keyCode){
 		case KeyEvent.VK_S:
-			TheBeat.game.releaseS();
+			TheBeat.game.releaseKey('S');
 			break;
 			
 		case KeyEvent.VK_D:
-			TheBeat.game.releaseD();
+			TheBeat.game.releaseKey('D');
 			break;
 
 		case KeyEvent.VK_F:
-			TheBeat.game.releaseF();
+			TheBeat.game.releaseKey('F');
 			break;
 			
 		case KeyEvent.VK_J:
-			TheBeat.game.releaseJ();
+			TheBeat.game.releaseKey('J');
 			break;
 			
 		case KeyEvent.VK_K:
-			TheBeat.game.releaseK();
+			TheBeat.game.releaseKey('K');
 			break;
 			
 		case KeyEvent.VK_L:
-			TheBeat.game.releaseL();
+			TheBeat.game.releaseKey('L');
 			break;
 
 		}

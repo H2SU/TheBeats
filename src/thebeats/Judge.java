@@ -37,8 +37,6 @@ public class Judge {
 		else if(s.equals("bad")){
 			bad++;
 		}
-		
-		
 	}
 
 

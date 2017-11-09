@@ -30,6 +30,7 @@ public class TheBeat extends JFrame implements MouseListener {
 	private static Image background;
 	private static boolean isMainScreen = false; // 메인화면인지 아닌지 구분
 	private static boolean isGameScreen = false; // 게임화면인지 아닌지 구분
+	private static boolean isResultScreen = false;
 
 	private Image selectedImg; // 선택된 앨범 이미지
 	private Image titleImg;
@@ -74,6 +75,16 @@ public class TheBeat extends JFrame implements MouseListener {
 
 	public static boolean isMainScreen() {
 		return isMainScreen;
+	}
+	
+	
+
+	public static boolean isResultScreen() {
+		return isResultScreen;
+	}
+
+	public static void setResultScreen(boolean isResultScreen) {
+		TheBeat.isResultScreen = isResultScreen;
 	}
 
 	public static void setMainScreen(boolean isMainScreen) {
@@ -123,6 +134,8 @@ public class TheBeat extends JFrame implements MouseListener {
 			requestFocusInWindow();
 			game.screenDraw(g);
 
+		} else if(isResultScreen) {
+			
 		}
 		paintComponents(g);// JLabel같은 것을 JFrame 내에 추가하면 그려줌 항상 고정된 것을 그릴때 사용
 		this.repaint();// 다시 paint()를 불러옴 전체화면 이미지를 매순간마다 프로그램이 종료되는 순간까지 그려줌

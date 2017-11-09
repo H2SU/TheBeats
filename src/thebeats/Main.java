@@ -14,6 +14,7 @@ public class Main {
 		
 	new TheBeat(); // 새 객체 생성
 
+	
 	}
 
 }
