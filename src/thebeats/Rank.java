@@ -8,7 +8,7 @@ public class Rank {
 	private int bad;
 	private int noteCnt;
 
-	final String[] grade = new String[] { "S", "A", "B", "C", "F" };
+	final char[] grade = new char[] { 'S', 'A', 'B', 'C', 'F' };
 
 	public Rank(int noteCnt) {
 		bad = 0;
@@ -18,9 +18,7 @@ public class Rank {
 		this.noteCnt = noteCnt;
 	}
 
-	public String[] getGrade() {
-		return grade;
-	}
+	
 	
 	public void plusScore(String score){
 		String s = score.toLowerCase();
@@ -40,11 +38,11 @@ public class Rank {
 	}
 
 
-	public String calculateGrade(){
+	public char calculateGrade(){
 		int max = (int)((perfect*1 + good*0.7 + bad*0.3 + miss*0)/noteCnt*100);
 		
 		System.out.println("전체노트개수:"+noteCnt+" ,퍼펙트:"+perfect+", 굿: "+ good+" ,뱃: "+bad+" ,미스: "+miss);
-		
+			
 		if(max == 100)
 			return grade[0];
 		else if(max >=70)

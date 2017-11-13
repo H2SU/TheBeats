@@ -26,6 +26,7 @@ public class Game extends Thread {
 	private Image flareImage;
 	private Image judgeImage;
 
+	
 	private String titleName;
 	private String musicTitle;
 	private Music gameMusic;
@@ -63,6 +64,7 @@ public class Game extends Thread {
 		g.drawImage(flareImage, 360, 430, null);
 		g.drawImage(judgeImage, 360, 420, null);
 
+		
 		for (int i = 0; i < noteList.size(); i++) {
 			Note note = noteList.get(i);
 			if (note.getY() >= 620) {
@@ -178,9 +180,8 @@ public class Game extends Thread {
 		gameMusic.close();
 		this.interrupt();
 
-		TheBeat.setGameScreen(false);
-		TheBeat.setResultScreen(true);
-		TheBeat.setBackground(new ImageIcon(Main.class.getResource("../images/background_result.png")).getImage());
+		TheBeat.gameEnd(rank.calculateGrade());
+		
 	}
 
 	public void dropNotes() {

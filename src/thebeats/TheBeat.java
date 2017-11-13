@@ -31,6 +31,8 @@ public class TheBeat extends JFrame implements MouseListener {
 	private static boolean isMainScreen = false; // 메인화면인지 아닌지 구분
 	private static boolean isGameScreen = false; // 게임화면인지 아닌지 구분
 	private static boolean isResultScreen = false;
+	
+	private static Image scoreImg;
 
 	private Image selectedImg; // 선택된 앨범 이미지
 	private Image titleImg;
@@ -77,8 +79,6 @@ public class TheBeat extends JFrame implements MouseListener {
 		return isMainScreen;
 	}
 	
-	
-
 	public static boolean isResultScreen() {
 		return isResultScreen;
 	}
@@ -135,6 +135,7 @@ public class TheBeat extends JFrame implements MouseListener {
 			game.screenDraw(g);
 
 		} else if(isResultScreen) {
+			g.drawImage(scoreImg, 0, 100, null);
 			
 		}
 		paintComponents(g);// JLabel같은 것을 JFrame 내에 추가하면 그려줌 항상 고정된 것을 그릴때 사용
@@ -169,6 +170,36 @@ public class TheBeat extends JFrame implements MouseListener {
 		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
 		game.start();
 			
+	}
+	
+	/**
+	 * 게임 끝
+	 * @param state
+	 */
+	public static void gameEnd(char score) {
+		
+		isGameScreen = false;
+		isResultScreen = true;
+		setBackground(new ImageIcon(Main.class.getResource("../images/background_result.png")).getImage());
+		
+		//점수 이미지 등록
+		switch(score) {
+		case 'S' :
+			scoreImg = new ImageIcon(Main.class.getResource("../images/rank_s.png")).getImage();
+			break;
+		case 'A' :
+			scoreImg = new ImageIcon(Main.class.getResource("../images/rank_a.png")).getImage();
+			break;
+		case 'B' :
+			scoreImg = new ImageIcon(Main.class.getResource("../images/rank_b.png")).getImage();
+			break;
+		case 'C' :
+			scoreImg = new ImageIcon(Main.class.getResource("../images/rank_c.png")).getImage();
+			break;
+		case 'F' :
+			scoreImg = new ImageIcon(Main.class.getResource("../images/rank_f.png")).getImage();
+			break;
+		}
 	}
 
 	// 버튼 가시상태 변경 메소드
