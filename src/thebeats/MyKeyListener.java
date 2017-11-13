@@ -58,6 +58,7 @@ public class MyKeyListener extends KeyAdapter {
 		if(TheBeat.game == null)
 			return;
 		
+		
 		switch(keyCode){
 		case KeyEvent.VK_S:
 			TheBeat.game.releaseKey('S');

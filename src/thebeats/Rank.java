@@ -1,6 +1,6 @@
 package thebeats;
 
-public class Judge {
+public class Rank {
 
 	private int perfect;
 	private int good;
@@ -10,7 +10,7 @@ public class Judge {
 
 	final String[] grade = new String[] { "S", "A", "B", "C", "F" };
 
-	public Judge(int noteCnt) {
+	public Rank(int noteCnt) {
 		bad = 0;
 		good = 0;
 		perfect = 0;

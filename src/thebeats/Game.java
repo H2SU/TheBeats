@@ -30,7 +30,7 @@ public class Game extends Thread {
 	private String musicTitle;
 	private Music gameMusic;
 
-	private Judge judge; // 판단
+	private Rank rank; // 판단
 	private int count = 0;
 
 	private NoteBeat[] beats = null;
@@ -67,7 +67,7 @@ public class Game extends Thread {
 			Note note = noteList.get(i);
 			if (note.getY() >= 620) {
 				judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
-				judge.plusScore("miss");
+				rank.plusScore("miss");
 				
 				if (count == beats.length - 1) { //노트의 갯수만큼 이 메소드가 호출되었으면 게임 종료.
 					gameEnd();
@@ -174,7 +174,7 @@ public class Game extends Thread {
 	}
 
 	public void close() {
-		System.out.println("끝" + judge.calculateGrade());
+		System.out.println("끝" + rank.calculateGrade());
 		gameMusic.close();
 		this.interrupt();
 
@@ -198,7 +198,7 @@ public class Game extends Thread {
 		}
 		int i = 0;
 		gameMusic.start(); // 음악 시작
-		judge = new Judge(beats.length);
+		rank = new Rank(beats.length);
 
 		while (i < beats.length && !isInterrupted()) {
 			boolean dropped = false;
@@ -232,7 +232,7 @@ public class Game extends Thread {
 			if (input.equals(note.getNoteType())) {
 				String s = "";
 				judgeEvent(s = note.judge());
-				judge.plusScore(s); // 점수 더하기
+				rank.plusScore(s); // 점수 더하기
 				++count; //judge메소드가 호출된 횟수 증가시켜줌
 				break;
 			}
