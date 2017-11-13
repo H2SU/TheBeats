@@ -51,7 +51,7 @@ public class Beat extends JFrame {
 	
 	public Beat() {
 		trackList.add(new Track("elise1.png", "eliseselect.png",
-				"selectedImage.png", "elise.mp3", "elise.mp3", "elise"));//0
+				"selectedImage.png", "elise2.mp3", "elise.mp3", "elise"));//0
 		trackList.add(new Track("summer1.png", "summerselect.png",
 				"selectedImage.png", "summer.mp3", "summer.mp3", "summer"));//1
 		trackList.add(new Track("canon1.png", "canonselect.png",
@@ -284,7 +284,7 @@ public class Beat extends JFrame {
 		game = new Game(trackList.get(nowSelected).gettitleName(),trackList.get(nowSelected).getGameMusic() );
 		game.start();
 		setFocusable(true);
-		
+		 
 	}
 	public void backMain() {
 		isMainScreen =true;
@@ -297,7 +297,7 @@ public class Beat extends JFrame {
 		isGameScreen = false;
 		game.close();
 	}
-	
+	 
 	public static void enterMain() {
 		background = new ImageIcon(Main.class.getResource("../images/background1.png"))
 				.getImage(); 
@@ -309,6 +309,6 @@ public class Beat extends JFrame {
 		selectTrack(0);
 	}
 	
-	
+	 
 
 }
