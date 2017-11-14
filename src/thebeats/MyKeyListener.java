@@ -22,27 +22,27 @@ public class MyKeyListener extends KeyAdapter {
 			}
 			break;
 		case KeyEvent.VK_S:
-			TheBeat.game.pressKey('S');
+			thebeat.getGame().pressKey('S');
 			break;
 
 		case KeyEvent.VK_D:
-			TheBeat.game.pressKey('D');
+			thebeat.getGame().pressKey('D');
 			break;
 
 		case KeyEvent.VK_F:
-			TheBeat.game.pressKey('F');
+			thebeat.getGame().pressKey('F');
 			break;
 
 		case KeyEvent.VK_J:
-			TheBeat.game.pressKey('J');
+			thebeat.getGame().pressKey('J');
 			break;
 
 		case KeyEvent.VK_K:
-			TheBeat.game.pressKey('K');
+			thebeat.getGame().pressKey('K');
 			break;
 
 		case KeyEvent.VK_L:
-			TheBeat.game.pressKey('L');
+			thebeat.getGame().pressKey('L');
 			break;
 
 		}
@@ -52,32 +52,32 @@ public class MyKeyListener extends KeyAdapter {
 	public void keyReleased(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 
-		if (TheBeat.game == null)
+		if (thebeat.getGame() == null)
 			return;
 
 		switch (keyCode) {
 		case KeyEvent.VK_S:
-			TheBeat.game.releaseKey('S');
+			thebeat.getGame().releaseKey('S');
 			break;
 
 		case KeyEvent.VK_D:
-			TheBeat.game.releaseKey('D');
+			thebeat.getGame().releaseKey('D');
 			break;
 
 		case KeyEvent.VK_F:
-			TheBeat.game.releaseKey('F');
+			thebeat.getGame().releaseKey('F');
 			break;
 
 		case KeyEvent.VK_J:
-			TheBeat.game.releaseKey('J');
+			thebeat.getGame().releaseKey('J');
 			break;
 
 		case KeyEvent.VK_K:
-			TheBeat.game.releaseKey('K');
+			thebeat.getGame().releaseKey('K');
 			break;
 
 		case KeyEvent.VK_L:
-			TheBeat.game.releaseKey('L');
+			thebeat.getGame().releaseKey('L');
 			break;
 
 		}

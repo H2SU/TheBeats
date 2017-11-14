@@ -5,12 +5,10 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.naming.Context;
 import javax.swing.ImageIcon;
 
 public class Game extends Thread {
@@ -45,8 +43,7 @@ public class Game extends Thread {
 		this.titleName = titleName;
 		this.musicTitle = musicTitle;
 		this.thebeat = thebeat;
-		gameMusic = new Music(this.musicTitle, false);
-
+		this.gameMusic = new Music(this.musicTitle, false);
 	}
 
 	public void screenDraw(Graphics2D g) {
@@ -92,12 +89,12 @@ public class Game extends Thread {
 		g.setFont(new Font("Arial", Font.BOLD, 30));
 		g.drawString(titleName, 20, 702);
 		g.setColor(Color.DARK_GRAY);
-		g.drawString("S", 270, 615);
-		g.drawString("D", 374, 615);
-		g.drawString("F", 478, 615);
-		g.drawString("J", 572, 615);
-		g.drawString("K", 676, 615);
-		g.drawString("L", 780, 615);
+		g.drawString("S", 270, 620);
+		g.drawString("D", 374, 620);
+		g.drawString("F", 478, 620);
+		g.drawString("J", 572, 620);
+		g.drawString("K", 676, 620);
+		g.drawString("L", 780, 620);
 	}
 
 	/**
@@ -165,7 +162,7 @@ public class Game extends Thread {
 	}
 
 	/**
-	 * 게임 끝났을 때.
+	 * 게임 끝났을 때. 3초 지연.
 	 */
 	public void gameEnd() {
 		Timer tm = new Timer();
@@ -183,8 +180,7 @@ public class Game extends Thread {
 		gameMusic.close();
 		this.interrupt();
 		
-		thebeat.gameEnd(rank.calculateGrade(), rank.getPerfect(), rank.getGood(), rank.getBad(), rank.getMiss());
-
+		thebeat.gameEnd(rank);
 	}
 
 	public void dropNotes() {
@@ -226,6 +222,7 @@ public class Game extends Thread {
 		}
 
 	}
+
 
 	public void judge(String input) {
 
