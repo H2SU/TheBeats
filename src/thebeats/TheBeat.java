@@ -27,15 +27,15 @@ public class TheBeat extends JFrame implements MouseListener {
 	private JButton rightBtn;
 	private JButton leftBtn;
 
-	private static Image background;
-	private static boolean isMainScreen = false; // 메인화면인지 아닌지 구분
-	private static boolean isGameScreen = false; // 게임화면인지 아닌지 구분
-	private static boolean isResultScreen = false;
+	private Image background;
+	private boolean isMainScreen = false; // 메인화면인지 아닌지 구분
+	private boolean isGameScreen = false; // 게임화면인지 아닌지 구분
+	private boolean isResultScreen = false;
 
 	private Music introMusic;
 	private Music btnEnteredMusic;
-	
-	private static Image scoreImg;
+
+	private Image scoreImg;
 
 	private Image selectedImg; // 선택된 앨범 이미지
 	private Image titleImg;
@@ -46,7 +46,7 @@ public class TheBeat extends JFrame implements MouseListener {
 	private ArrayList<Track> trackList = new ArrayList<>();
 
 	public TheBeat() {
-		addKeyListener(new MyKeyListener()); // 키 리스너 등록
+		addKeyListener(new MyKeyListener(this)); // 키 리스너 등록
 		background = new ImageIcon(Main.class.getResource("../images/background_intro.png")).getImage();
 		initBtn();
 		initLocateBtn();
@@ -71,49 +71,22 @@ public class TheBeat extends JFrame implements MouseListener {
 				"summer.mp3", "summer"));
 		trackList.add(new Track("track_canon.png", "track_canon_title.png", "selectedImg.png", "canon.mp3",
 				"cannon.mp3", "canon"));
-		
+
 		btnEnteredMusic = new Music("buttonEnteredMusic.mp3", false);
 		introMusic = new Music("intro.mp3", true);
 		introMusic.start();
-		
+
 	}
 
-
-	public static void setBackground(Image background) {
-		TheBeat.background = background;
-	}
-
-	public static boolean isMainScreen() {
+	public boolean isMainScreen() {
 		return isMainScreen;
 	}
 
-	public static boolean isResultScreen() {
-		return isResultScreen;
-	}
-
-	public static void setResultScreen(boolean isResultScreen) {
-		TheBeat.isResultScreen = isResultScreen;
-	}
-
-	public static void setMainScreen(boolean isMainScreen) {
-		TheBeat.isMainScreen = isMainScreen;
-	}
-
-	public static boolean isGameScreen() {
+	public boolean isGameScreen() {
 		return isGameScreen;
 	}
 
-	public static void setGameScreen(boolean isGameScreen) {
-		TheBeat.isGameScreen = isGameScreen;
-	}
-	
-	public static void enteredMainScreen() {
-		btnEnteredMusic.start();
-		setMainScreen(true);
-		setBackground(
-				new ImageIcon(Main.class.getResource("../images/background_main.png")).getImage()); // 배경화면
-	}
-
+	//버튼 등록
 	public void initBtn() {
 		exitBtn = new JButton(new ImageIcon(Main.class.getResource("../images/exit.png")));
 		startBtn = new JButton(new ImageIcon(Main.class.getResource("../images/btn_start.png")));
@@ -155,10 +128,21 @@ public class TheBeat extends JFrame implements MouseListener {
 		this.repaint();// 다시 paint()를 불러옴 전체화면 이미지를 매순간마다 프로그램이 종료되는 순간까지 그려줌
 	}
 
+	/**
+	 * 메인 진입 시 호출되는 메소드.
+	 */
+	public void enteredMainScreen() {
+		isMainScreen = true;
+		background = new ImageIcon(Main.class.getResource("../images/background_main.png")).getImage(); // 배경화면
+		introMusic.close();
+		btnEnteredMusic.start();
+		selectTrack(nowSelected);
+	}
+
 	public void selectTrack(int selected) {
 		if (selectedMusic != null) // 나오는 음악있으면 끄기
 			selectedMusic.close();
-		
+
 		selectedImg = new ImageIcon(Main.class.getResource("../images/" + trackList.get(selected).getAlbumImg()))
 				.getImage();
 		titleImg = new ImageIcon(Main.class.getResource("../images/" + trackList.get(selected).getTitleImg()))
@@ -181,7 +165,7 @@ public class TheBeat extends JFrame implements MouseListener {
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImg()))
 				.getImage();
 		setFocusable(true);
-		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
+		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic(), this);
 		game.start();
 	}
 
@@ -189,10 +173,10 @@ public class TheBeat extends JFrame implements MouseListener {
 	 * 게임 끝
 	 * 
 	 */
-	public static void gameEnd(char score, int perfect, int good, int bad, int miss) {
+	public void gameEnd(char score, int perfect, int good, int bad, int miss) {
 		isGameScreen = false;
 		isResultScreen = true;
-		setBackground(new ImageIcon(Main.class.getResource("../images/background_result.png")).getImage());
+		background = (new ImageIcon(Main.class.getResource("../images/background_result.png")).getImage());
 
 		// 점수 이미지 등록
 		switch (score) {
@@ -227,31 +211,30 @@ public class TheBeat extends JFrame implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object source = e.getSource();
-		
+
 		if (source == leftBtn) { // 왼쪽 버튼 클릭
 			if (nowSelected > 0) {
 				selectTrack(--nowSelected);
-		
-			}else
+
+			} else
 				selectTrack(nowSelected = trackList.size() - 1);
-			
+
 		}
 
 		else if (source == rightBtn) { // 오른쪽 버튼 클릭
 			if (nowSelected < trackList.size() - 1) {
 				selectTrack(++nowSelected);
-			
-			}
-			else 
+
+			} else
 				selectTrack(nowSelected = 0);
-			
+
 		} else if (source == startBtn) {
 			Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
 			buttonEnteredMusic.start();
 			gameStart(nowSelected);
 
 		}
-	
+
 	}
 
 	// 마우스가 영역에 진입했을 때

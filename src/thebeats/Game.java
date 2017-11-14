@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.naming.Context;
 import javax.swing.ImageIcon;
 
 public class Game extends Thread {
+	
+	TheBeat thebeat;
+	
 	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameInfo.png")).getImage();
 	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgeLine.png")).getImage();
 	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/note_routeLine.png")).getImage();
@@ -37,9 +41,10 @@ public class Game extends Thread {
 
 	ArrayList<Note> noteList = new ArrayList<Note>();
 
-	public Game(String titleName, String musicTitle) {
+	public Game(String titleName, String musicTitle, TheBeat thebeat) {
 		this.titleName = titleName;
 		this.musicTitle = musicTitle;
+		this.thebeat = thebeat;
 		gameMusic = new Music(this.musicTitle, false);
 
 	}
@@ -178,7 +183,7 @@ public class Game extends Thread {
 		gameMusic.close();
 		this.interrupt();
 		
-		TheBeat.gameEnd(rank.calculateGrade(), rank.getPerfect(), rank.getGood(), rank.getBad(), rank.getMiss());
+		thebeat.gameEnd(rank.calculateGrade(), rank.getPerfect(), rank.getGood(), rank.getBad(), rank.getMiss());
 
 	}
 
@@ -193,6 +198,7 @@ public class Game extends Thread {
 					new NoteBeat(startTime + gap * 14, "D"), new NoteBeat(startTime + gap * 16, "L"),
 					new NoteBeat(startTime + gap * 18, "F"), new NoteBeat(startTime + gap * 20, "L"),
 
+					
 			};
 		}
 		int i = 0;
