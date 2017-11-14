@@ -83,8 +83,12 @@ public class Note extends Thread{
 		}
 	}
 	public String judge() {
-
-		if( y>=610) {
+		if(y>= 620) {
+			count++;
+			close();
+			return "Miss";
+		}
+		else if( y>=610) {
 			System.out.println("Bad");
 			count++;
 			close();

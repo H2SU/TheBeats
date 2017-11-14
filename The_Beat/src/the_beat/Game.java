@@ -24,10 +24,12 @@ public class Game extends Thread {
 	private Image judgeImage;
 	
 	static int notesize = 0;
+	static Note a ;
 	private String titleName;
 	private String musicTitle;
 	private static Music gameMusic;
 	private NoteBeat[] beats = null;
+	static String result;
 
 	private static Judge judge;
 
@@ -59,6 +61,7 @@ public class Game extends Thread {
 
 		for (int i = 0; i < noteList.size(); i++) {
 			Note note = noteList.get(i);
+			a=note;
 			if (note.getY() > 620) {
 				judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 				judge.plusScore("miss");
@@ -157,7 +160,9 @@ public class Game extends Thread {
 	}
 
 	public static  void close() {
-		System.out.println("³¡" + judge.calculateGrade());
+		result = judge.calculateGrade();
+		
+		System.out.println("³¡" + result);
 		gameMusic.close();
 		//this.interrupt();
 		Beat.resultMain();
@@ -181,6 +186,8 @@ public class Game extends Thread {
 
 			};
 			notesize=beats.length;
+			System.out.println(notesize);
+
 		} else if (titleName.equals("summer")) {
 			int startTime = 1000 - Main.REACH_TIME * 1000;
 			int gap = 125;
@@ -193,6 +200,7 @@ public class Game extends Thread {
 
 			};
 			notesize=beats.length;
+			System.out.println(notesize);
 
 		} else if (titleName.equals("canon")) {
 			int startTime = 1000 - Main.REACH_TIME * 1000;
@@ -204,6 +212,7 @@ public class Game extends Thread {
 
 			};
 			notesize=beats.length;
+			System.out.println(notesize);
 
 		}
 		int i = 0;
@@ -231,9 +240,7 @@ public class Game extends Thread {
 	}
 
 	public void judge(String input) {
-		if (Note.count==noteList.size()) {
-			close();
-		}
+
 		for (int i = 0; i < noteList.size(); i++) {
 			Note note = noteList.get(i);
 			if (input.equals(note.getNoteType())) {

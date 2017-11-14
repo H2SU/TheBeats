@@ -2,9 +2,11 @@ package the_beat;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class Beat extends JFrame {
 	private static ImageIcon startButtonselectedImage = new ImageIcon(Main.class.getResource("../images/startbutton.png"));
 	private static ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/backbutton.png"));
 
+	private static Image rank ;
 	private static Image background = new ImageIcon(Main.class.getResource("../images/introbackground.png")).getImage();
 
 	private JButton exitButton = new JButton(exitButtonBasicImage);
@@ -39,7 +42,7 @@ public class Beat extends JFrame {
 	private static boolean isMainScreen = false; 
 	private static boolean isGameScreen = false;
 	private static boolean isResultScreen = false;
-	
+
 	static ArrayList<Track> trackList = new ArrayList<Track>();
 
 	private static Image titleImage;
@@ -49,7 +52,7 @@ public class Beat extends JFrame {
 	private int nowSelected = 0;
 
 	public static Game game;
-	
+
 	public Beat() {
 		trackList.add(new Track("elise1.png", "eliseselect.png",
 				"selectedImage.png", "elise.mp3", "elise.mp3", "elise"));//0
@@ -58,7 +61,7 @@ public class Beat extends JFrame {
 		trackList.add(new Track("canon1.png", "canonselect.png",
 				"selectedImage.png", "canon.mp3", "canon.mp3", "canon"));//2
 
-		
+
 		setUndecorated(true);
 		setTitle("The Beats");
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
@@ -73,7 +76,7 @@ public class Beat extends JFrame {
 
 		addKeyListener (new KeyListener());
 
-		
+
 		introMusic.start();
 
 		exitButton.setBounds(1170, 0, 120, 60);
@@ -106,7 +109,7 @@ public class Beat extends JFrame {
 			}
 		});
 		add(exitButton); 
-		
+
 		leftButton.setVisible(false);
 		leftButton.setBounds(200, 310, 120, 120); 
 		leftButton.setBorderPainted(false);
@@ -235,14 +238,22 @@ public class Beat extends JFrame {
 			game.screenDraw(g);
 		}
 		else if(isResultScreen) {
-			
+			g.drawImage(rank, 0, 100, null);
+			g.setColor(Color.white);
+			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			g.setFont(new Font("Arial", Font.BOLD, 50));
+			g.drawString(": "+String.valueOf(Judge.perfect), 810, 260);
+			g.drawString(": "+String.valueOf(Judge.good), 810, 340);
+			g.drawString(": "+String.valueOf(Judge.bad), 810, 430);
+			g.drawString(": "+String.valueOf(Judge.miss), 810, 530);
+
 		}
 		paintComponents(g);
-//		try {
-//			Thread.sleep(5);
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
+		//		try {
+		//			Thread.sleep(5);
+		//		}catch(Exception e) {
+		//			e.printStackTrace();
+		//		}
 		this.repaint();
 	}  
 	public static void selectTrack(int nowSelected) {
@@ -283,12 +294,12 @@ public class Beat extends JFrame {
 		musicstartButton.setVisible(false);
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage()))
 				.getImage();
-		backButton.setVisible(true);
+		//backButton.setVisible(true);
 		isGameScreen = true;
 		game = new Game(trackList.get(nowSelected).gettitleName(),trackList.get(nowSelected).getGameMusic() );
 		game.start();
 		setFocusable(true);
-		
+
 	}
 	public void backMain() {
 		isMainScreen =true;
@@ -301,7 +312,7 @@ public class Beat extends JFrame {
 		isGameScreen = false;
 		game.close();
 	}
-	
+
 	public static void enterMain() {
 		background = new ImageIcon(Main.class.getResource("../images/background1.png"))
 				.getImage(); 
@@ -312,13 +323,22 @@ public class Beat extends JFrame {
 		introMusic.close();
 		selectTrack(0);
 	}
-	
+
 	public static void resultMain() {
 		isGameScreen = false;
 		isResultScreen = true;
 		backButton.setVisible(false);
 		background = new ImageIcon(Main.class.getResource("../images/resultbackground.png"))
 				.getImage(); 
+		System.out.println(Judge.perfect);
+		if(game.result=="S") {rank = new ImageIcon(Main.class.getResource("../images/rank0.png")).getImage();}
+		else if(game.result=="A") {rank = new ImageIcon(Main.class.getResource("../images/rank1.png")).getImage();}
+		else if(game.result=="B") {rank = new ImageIcon(Main.class.getResource("../images/rank2.png")).getImage();}
+		else if(game.result=="C") {rank = new ImageIcon(Main.class.getResource("../images/rank3.png")).getImage();}
+		else if(game.result=="F") {rank = new ImageIcon(Main.class.getResource("../images/rank4.png")).getImage();}
+		
 	}
 
 }
+
+
