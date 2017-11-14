@@ -26,7 +26,6 @@ public class Game extends Thread {
 	private Image flareImage;
 	private Image judgeImage;
 
-	
 	private String titleName;
 	private String musicTitle;
 	private Music gameMusic;
@@ -64,17 +63,16 @@ public class Game extends Thread {
 		g.drawImage(flareImage, 360, 430, null);
 		g.drawImage(judgeImage, 360, 420, null);
 
-		
 		for (int i = 0; i < noteList.size(); i++) {
 			Note note = noteList.get(i);
 			if (note.getY() >= 620) {
 				judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 				rank.plusScore("miss");
-				
-				if (count == beats.length - 1) { //노트의 갯수만큼 이 메소드가 호출되었으면 게임 종료.
+
+				if (count == beats.length - 1) { // 노트의 갯수만큼 이 메소드가 호출되었으면 게임 종료.
 					gameEnd();
-				}else 
-					++count; //호출횟수 증가
+				} else
+					++count; // 호출횟수 증가
 
 			}
 			if (!note.isProceeded()) {
@@ -179,9 +177,9 @@ public class Game extends Thread {
 		System.out.println("끝" + rank.calculateGrade());
 		gameMusic.close();
 		this.interrupt();
-
-		TheBeat.gameEnd(rank.calculateGrade());
 		
+		TheBeat.gameEnd(rank.calculateGrade(), rank.getPerfect(), rank.getGood(), rank.getBad(), rank.getMiss());
+
 	}
 
 	public void dropNotes() {
@@ -225,7 +223,7 @@ public class Game extends Thread {
 
 	public void judge(String input) {
 
-		if (count == beats.length - 1) { //노트의 갯수만큼 이 메소드가 호출되었으면 게임 종료.
+		if (count == beats.length - 1) { // 노트의 갯수만큼 이 메소드가 호출되었으면 게임 종료.
 			gameEnd();
 		}
 		for (int i = 0; i < noteList.size(); i++) {
@@ -234,7 +232,7 @@ public class Game extends Thread {
 				String s = "";
 				judgeEvent(s = note.judge());
 				rank.plusScore(s); // 점수 더하기
-				++count; //judge메소드가 호출된 횟수 증가시켜줌
+				++count; // judge메소드가 호출된 횟수 증가시켜줌
 				break;
 			}
 

@@ -18,7 +18,7 @@ public class MyKeyListener extends KeyAdapter {
 			if (TheBeat.isMainScreen() == false && TheBeat.isGameScreen() == false) { // 인트로
 				btnEnteredMusic = new Music("buttonEnteredMusic.mp3", false);
 				btnEnteredMusic.start();
-
+				
 				TheBeat.setMainScreen(true);
 				TheBeat.setBackground(
 						new ImageIcon(Main.class.getResource("../images/background_main.png")).getImage()); // 배경화면

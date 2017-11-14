@@ -18,38 +18,52 @@ public class Rank {
 		this.noteCnt = noteCnt;
 	}
 
-	
-	
-	public void plusScore(String score){
+	public int getPerfect() {
+		return perfect;
+	}
+
+	public int getGood() {
+		return good;
+	}
+
+	public int getMiss() {
+		return miss;
+	}
+
+	public int getBad() {
+		return bad;
+	}
+
+	public int getNoteCnt() {
+		return noteCnt;
+	}
+
+	public void plusScore(String score) {
 		String s = score.toLowerCase();
-		
-		if(s.equals("perfect")){
+
+		if (s.equals("perfect")) {
 			++perfect;
-		}
-		else if(s.equals("good")){
+		} else if (s.equals("good")) {
 			++good;
-		}
-		else if(s.equals("miss")){
+		} else if (s.equals("miss")) {
 			miss++;
-		}
-		else if(s.equals("bad")){
+		} else if (s.equals("bad")) {
 			bad++;
 		}
 	}
 
+	public char calculateGrade() {
+		int max = (int) ((perfect * 1 + good * 0.7 + bad * 0.3 + miss * 0) / noteCnt * 100);
 
-	public char calculateGrade(){
-		int max = (int)((perfect*1 + good*0.7 + bad*0.3 + miss*0)/noteCnt*100);
-		
-		System.out.println("전체노트개수:"+noteCnt+" ,퍼펙트:"+perfect+", 굿: "+ good+" ,뱃: "+bad+" ,미스: "+miss);
-			
-		if(max == 100)
+		System.out.println("전체노트개수:" + noteCnt + " ,퍼펙트:" + perfect + ", 굿: " + good + " ,뱃: " + bad + " ,미스: " + miss);
+
+		if (max == 100)
 			return grade[0];
-		else if(max >=70)
+		else if (max >= 70)
 			return grade[1];
-		else if(max >=50)
+		else if (max >= 50)
 			return grade[2];
-		else if(max>=30)
+		else if (max >= 30)
 			return grade[3];
 		else
 			return grade[4];
