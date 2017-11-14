@@ -9,10 +9,10 @@ public class Note extends Thread{
 
 	private Image notebasicImage = new ImageIcon(Main.class.getResource("../images/note_basic.png")).getImage(); 
 	private int x, y=580-(1000/Main.SLEEP_TIME* Main.NOTE_SPEED) * Main.REACH_TIME; //-120 y 1초에 580  
-	private String noteType;
+	private char noteType;
 	private boolean proceeded = true;
 	
-	public String getNoteType() {
+	public char getNoteType() {
 		return noteType;
 	}
 	
@@ -24,23 +24,23 @@ public class Note extends Thread{
 		proceeded = false;
 	}
 	
-	public Note(String noteType) { //x동적으로 
-		if(noteType.equals("S")) {
+	public Note(char noteType) { //x동적으로 
+		if(noteType=='S') {
 			x=228;
 		}	
-		else if(noteType.equals("D")) {
+		else if(noteType=='D') {
 			x=332;
 		}
-		else if(noteType.equals("F")) {
+		else if(noteType=='F') {
 			x=436;
 		}
-		else if(noteType.equals("J")) {
+		else if(noteType=='J') {
 			x=540;
 		}
-		else if(noteType.equals("K")) {
+		else if(noteType=='K') {
 			x=644;
 		}
-		else if(noteType.equals("L")) {
+		else if(noteType=='L') {
 			x=748;
 		}
 		this.noteType=noteType;

@@ -2,7 +2,13 @@ package thebeats;
 
 public class NoteBeat {
 	private int time;
-	private String noteName;
+	private char noteName;
+	
+	public NoteBeat(int time, char noteName) {
+		super();
+		this.time = time;
+		this.noteName = noteName;
+	}
 	
 	public int getTime() {
 		return time;
@@ -10,17 +16,13 @@ public class NoteBeat {
 	public void setTime(int time) {
 		this.time = time;
 	}
-	public String getNoteName() {
+	public char getNoteName() {
 		return noteName;
 	}
 	
-	public void setNoteName(String noteName) {
+	public void setNoteName(char noteName) {
 		this.noteName = noteName;
 	}
-	public NoteBeat(int time, String noteName) {
-		super();
-		this.time = time;
-		this.noteName = noteName;
-	}
+	
 	
 }

@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 
 public class Game extends Thread {
 	
-	TheBeat thebeat;
+	private TheBeat thebeat;
 	
 	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameInfo.png")).getImage();
 	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgeLine.png")).getImage();
@@ -103,7 +103,7 @@ public class Game extends Thread {
 	 * @param key
 	 */
 	public void pressKey(char key) {
-		judge(String.valueOf(key)); // judge호출
+		judge(key); // judge호출
 
 		switch (key) {
 		case 'S':
@@ -188,11 +188,11 @@ public class Game extends Thread {
 		if (titleName.equals("summer")) {
 			int startTime = 1000 - Main.REACH_TIME * 1000;
 			int gap = 125;
-			beats = new NoteBeat[] { new NoteBeat(startTime + gap * 2, "J"), new NoteBeat(startTime + gap * 4, "S"),
-					new NoteBeat(startTime + gap * 6, "J"), new NoteBeat(startTime + gap * 8, "K"),
-					new NoteBeat(startTime + gap * 10, "D"), new NoteBeat(startTime + gap * 12, "K"),
-					new NoteBeat(startTime + gap * 14, "D"), new NoteBeat(startTime + gap * 16, "L"),
-					new NoteBeat(startTime + gap * 18, "F"), new NoteBeat(startTime + gap * 20, "L"),
+			beats = new NoteBeat[] { new NoteBeat(startTime + gap * 2, 'J'), new NoteBeat(startTime + gap * 4, 'S'),
+					new NoteBeat(startTime + gap * 6, 'J'), new NoteBeat(startTime + gap * 8, 'K'),
+					new NoteBeat(startTime + gap * 10, 'D'), new NoteBeat(startTime + gap * 12, 'K'),
+					new NoteBeat(startTime + gap * 14, 'D'), new NoteBeat(startTime + gap * 16, 'L'),
+					new NoteBeat(startTime + gap * 18, 'F'), new NoteBeat(startTime + gap * 20, 'L'),
 
 					
 			};
@@ -224,14 +224,14 @@ public class Game extends Thread {
 	}
 
 
-	public void judge(String input) {
+	public void judge(char input) {
 
 		if (count == beats.length - 1) { // 노트의 갯수만큼 이 메소드가 호출되었으면 게임 종료.
 			gameEnd();
 		}
 		for (int i = 0; i < noteList.size(); i++) {
 			Note note = noteList.get(i);
-			if (input.equals(note.getNoteType())) {
+			if (input==(note.getNoteType())) {
 				String s = "";
 				judgeEvent(s = note.judge());
 				rank.plusScore(s); // 점수 더하기
