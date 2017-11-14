@@ -33,6 +33,7 @@ public class TheBeat extends JFrame implements MouseListener {
 	private static boolean isResultScreen = false;
 
 	private Music introMusic;
+	private Music btnEnteredMusic;
 	
 	private static Image scoreImg;
 
@@ -71,9 +72,12 @@ public class TheBeat extends JFrame implements MouseListener {
 		trackList.add(new Track("track_canon.png", "track_canon_title.png", "selectedImg.png", "canon.mp3",
 				"cannon.mp3", "canon"));
 		
+		btnEnteredMusic = new Music("buttonEnteredMusic.mp3", false);
 		introMusic = new Music("intro.mp3", true);
-		selectTrack(0);
+		introMusic.start();
+		
 	}
+
 
 	public static void setBackground(Image background) {
 		TheBeat.background = background;
@@ -101,6 +105,13 @@ public class TheBeat extends JFrame implements MouseListener {
 
 	public static void setGameScreen(boolean isGameScreen) {
 		TheBeat.isGameScreen = isGameScreen;
+	}
+	
+	public static void enteredMainScreen() {
+		btnEnteredMusic.start();
+		setMainScreen(true);
+		setBackground(
+				new ImageIcon(Main.class.getResource("../images/background_main.png")).getImage()); // 배경화면
 	}
 
 	public void initBtn() {

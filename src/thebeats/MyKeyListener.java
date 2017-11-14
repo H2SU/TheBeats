@@ -7,21 +7,14 @@ import javax.swing.ImageIcon;
 
 public class MyKeyListener extends KeyAdapter {
 
-	Music btnEnteredMusic;
-
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		
 		switch (keyCode) {
 		case KeyEvent.VK_SPACE: 
-			if (TheBeat.isMainScreen() == false && TheBeat.isGameScreen() == false) { // 인트로
-				btnEnteredMusic = new Music("buttonEnteredMusic.mp3", false);
-				btnEnteredMusic.start();
-				
-				TheBeat.setMainScreen(true);
-				TheBeat.setBackground(
-						new ImageIcon(Main.class.getResource("../images/background_main.png")).getImage()); // 배경화면
+			if (TheBeat.isMainScreen() == false && TheBeat.isGameScreen() == false) { // 인트로화면
+				TheBeat.enteredMainScreen(); //메인 스크린 진입
 			}
 			break;
 		case KeyEvent.VK_S:
