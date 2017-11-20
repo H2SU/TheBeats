@@ -69,9 +69,10 @@ public class Game extends Thread {
 			Note note = noteList.get(i);
 			if (note.getY() >= 620) {
 				judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
-				rank.plusScore("miss");
+				rank.plusScore("Miss");
 
 				if (count == beats.length - 1) { // 노트의 갯수만큼 이 메소드가 호출되었으면 게임 종료.
+					System.out.println("이 것은 걍지나간곳에서호출");
 					gameEnd();
 				} else
 					++count; // 호출횟수 증가
@@ -102,7 +103,7 @@ public class Game extends Thread {
 	 * 
 	 * @param key
 	 */
-	public void pressKey(char key) {
+	public void pressdKey(char key) {
 		judge(key); // judge호출
 
 		switch (key) {
@@ -133,7 +134,7 @@ public class Game extends Thread {
 	 * 
 	 * @param key
 	 */
-	public void releaseKey(char key) {
+	public void releasedKey(char key) {
 		switch (key) {
 		case 'S':
 			noteRouteSImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
@@ -176,11 +177,11 @@ public class Game extends Thread {
 	}
 
 	public void close() {
-		System.out.println("끝" + rank.calculateGrade());
+		System.out.println("끝: " + rank.calculateGrade());
 		gameMusic.close();
 		this.interrupt();
 		
-		thebeat.gameEnd(rank);
+		thebeat.endGame(rank);
 	}
 
 	public void dropNotes() {
@@ -227,14 +228,13 @@ public class Game extends Thread {
 	public void judge(char input) {
 
 		if (count == beats.length - 1) { // 노트의 갯수만큼 이 메소드가 호출되었으면 게임 종료.
+			System.out.println("이 것은 져지에서호출");
 			gameEnd();
 		}
 		for (int i = 0; i < noteList.size(); i++) {
 			Note note = noteList.get(i);
-			if (input==(note.getNoteType())) {
-				String s = "";
-				judgeEvent(s = note.judge());
-				rank.plusScore(s); // 점수 더하기
+			if (input == note.getNoteType()) {
+				rank.plusScore(judgeEvent(note.judge())); //점수 더하면서 judge판단하기
 				++count; // judge메소드가 호출된 횟수 증가시켜줌
 				break;
 			}
@@ -243,7 +243,7 @@ public class Game extends Thread {
 
 	}
 
-	public void judgeEvent(String judge) {
+	public String judgeEvent(String judge) {
 		if (judge.equals("Miss")) {
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 		} else if (judge.equals("Bad")) {
@@ -253,6 +253,8 @@ public class Game extends Thread {
 		} else if (judge.equals("Perfect")) {
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
 		}
+		
+		return judge; 
 
 	}
 

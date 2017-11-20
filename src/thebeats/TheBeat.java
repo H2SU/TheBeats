@@ -20,7 +20,7 @@ public class TheBeat extends JFrame implements MouseListener {
 
 	private Game game;
 	private Rank rank;
-	
+
 	private Graphics screenGraphic;
 
 	private JButton startBtn;
@@ -33,29 +33,25 @@ public class TheBeat extends JFrame implements MouseListener {
 	private Image scoreImg;
 	private Image selectedImg; // 선택된 앨범 이미지
 	private Image titleImg;
-	
-	private boolean isMainScreen = false; // 메인화면인지 아닌지 구분
-	private boolean isGameScreen = false; // 게임화면인지 아닌지 구분
-	private boolean isResultScreen = false;
+
+	private boolean isMainScreen = false; // 메인화면인지 구분
+	private boolean isGameScreen = false; // 게임화면인지 구분
+	private boolean isResultScreen = false; // 결과화면인지 구분
 
 	private Music introMusic;
 	private Music selectedMusic; // 선택된 곡
-	
+
 	private int nowSelected = 0; // 현재 선택된 항목
-	private ArrayList<Track> trackList = new ArrayList<>(); //트랙 리스트
+	private ArrayList<Track> trackList = new ArrayList<>(); // 트랙 리스트
 
 	public TheBeat() {
 		introMusic = new Music("intro.mp3", true);
 		introMusic.start();
-		addKeyListener(new MyKeyListener(this)); // 키 리스너 등록
+		addKeyListener(new MyKeyListener(this)); // 키 리스너 등록하면서 현재 객체의 참조도 같이보냄
 		background = new ImageIcon(Main.class.getResource("../images/background_intro.png")).getImage();
 		initBtn();
-		initLocateBtn();
 		initListener();
-		add(exitBtn);
-		add(startBtn);
-		add(rightBtn);
-		add(leftBtn);
+		initLocateBtn();
 		setUndecorated(true);
 		setFocusable(true);
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);// 상수를 이용하여 전체게임창 크기설정
@@ -116,7 +112,7 @@ public class TheBeat extends JFrame implements MouseListener {
 	public void screenDraw(Graphics2D g) {
 		g.drawImage(background, 0, 0, null); // background이미지를 전체(스크린이미지)에 그려줌
 
-		if (isMainScreen) { //메인화면일때.
+		if (isMainScreen) { // 메인화면일때.
 			changeBtnVisibility(true); // 버튼들 보이게 하기.
 			setFocusable(false);
 			g.drawImage(selectedImg, 340, 100, null);// 선택된 음악의 이미지
@@ -126,15 +122,27 @@ public class TheBeat extends JFrame implements MouseListener {
 			game.screenDraw(g);
 
 		} else if (isResultScreen) {
-			g.drawImage(scoreImg, 0, 100, null);
+			g.drawImage(scoreImg, 100, 150, null);
 			g.setColor(Color.white);
+			g.drawString(String.valueOf(rank.getPerfect()), 920, 270);
+			g.drawString(String.valueOf(rank.getGood()), 920, 360);
+			g.drawString(String.valueOf(rank.getBad()), 920, 450);
+			g.drawString(String.valueOf(rank.getMiss()), 920, 540);
+			g.drawString(String.valueOf(rank.getPerfect()), 920, 270);
+			g.drawString(String.valueOf(rank.getGood()), 920, 360);
+			g.drawString(String.valueOf(rank.getBad()), 920, 450);
+			g.drawString(String.valueOf(rank.getMiss()), 920, 540);
+			g.drawString(String.valueOf(rank.getPerfect()), 920, 270);
+			g.drawString(String.valueOf(rank.getGood()), 920, 360);
+			g.drawString(String.valueOf(rank.getBad()), 920, 450);
+			g.drawString(String.valueOf(rank.getMiss()), 920, 540);
 			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			g.setFont(new Font("Arial", Font.BOLD, 52));
 			g.setColor(Color.white);
-			g.drawString(String.valueOf(rank.getPerfect()), 920, 264);
-			g.drawString(String.valueOf(rank.getGood()), 920, 372);
-			g.drawString(String.valueOf(rank.getBad()), 920, 488);
-			g.drawString(String.valueOf(rank.getMiss()), 920, 600);
+			g.drawString(String.valueOf(rank.getPerfect()), 920, 270);
+			g.drawString(String.valueOf(rank.getGood()), 920, 360);
+			g.drawString(String.valueOf(rank.getBad()), 920, 450);
+			g.drawString(String.valueOf(rank.getMiss()), 920, 540);
 		}
 		paintComponents(g);// JLabel같은 것을 JFrame 내에 추가하면 그려줌 항상 고정된 것을 그릴때 사용
 		this.repaint();// 다시 paint()를 불러옴 전체화면 이미지를 매순간마다 프로그램이 종료되는 순간까지 그려줌
@@ -154,6 +162,7 @@ public class TheBeat extends JFrame implements MouseListener {
 
 	/**
 	 * 트랙 선택하면 호출되는 메소드
+	 * 
 	 * @param selected
 	 */
 	public void selectTrack(int selected) {
@@ -165,21 +174,21 @@ public class TheBeat extends JFrame implements MouseListener {
 		titleImg = new ImageIcon(Main.class.getResource("../images/" + trackList.get(selected).getTitleImg()))
 				.getImage();
 		selectedMusic = new Music(trackList.get(selected).getAlbumMusic(), true);
-		selectedMusic.start(); //미리듣기 시작
+		selectedMusic.start(); // 미리듣기 시작
 
 	}
 
 	/**
 	 * 게임시작
 	 */
-	public void gameStart(int nowSelected) {
+	public void startGame(int nowSelected) {
 		if (selectedMusic != null)
 			selectedMusic.close();
 
 		isMainScreen = false;
 		isGameScreen = true;
 		changeBtnVisibility(false); // 버튼 다 안보이게 하기.
-		
+
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImg()))
 				.getImage();
 		setFocusable(true);
@@ -191,7 +200,7 @@ public class TheBeat extends JFrame implements MouseListener {
 	 * 게임 끝
 	 * 
 	 */
-	public void gameEnd(Rank r) {
+	public void endGame(Rank r) {
 		rank = r;
 		isGameScreen = false;
 		isResultScreen = true;
@@ -225,7 +234,6 @@ public class TheBeat extends JFrame implements MouseListener {
 		leftBtn.setVisible(state);
 	}
 
-	
 	/**
 	 * 마우스 리스너
 	 */
@@ -238,7 +246,7 @@ public class TheBeat extends JFrame implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		JButton source = (JButton) (e.getSource());
-		source.setCursor(new Cursor(Cursor.HAND_CURSOR)); //커서모양 변경.
+		source.setCursor(new Cursor(Cursor.HAND_CURSOR)); // 커서모양 변경.
 
 		Music btnEnteredMusic = new Music("buttonEnteredMusic.mp3", false);
 		btnEnteredMusic.start();
@@ -297,7 +305,7 @@ public class TheBeat extends JFrame implements MouseListener {
 		} else if (source == startBtn) {
 			Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
 			buttonEnteredMusic.start();
-			gameStart(nowSelected);
+			startGame(nowSelected);
 
 		}
 	}
@@ -315,17 +323,18 @@ public class TheBeat extends JFrame implements MouseListener {
 	}
 
 	/**
-	 * exit버튼 위치 등 설정
+	 * exit버튼 위치 등 설정 후 add
 	 */
 	public void locateExitBtn() {
 		exitBtn.setBounds(1170, 0, 120, 60);// 나가기 버튼의 위치와 크기설정 메뉴바의 가장 오른쪽에 위치
 		exitBtn.setBorderPainted(false);
 		exitBtn.setContentAreaFilled(false);
 		exitBtn.setFocusPainted(false); // 생각한 형태로 이미지가 나오도록 설정
+		add(exitBtn);
 	}
 
 	/**
-	 * start버튼 위치 등 설정
+	 * start버튼 위치 등 설정 후 add
 	 */
 	public void locateStartBtn() {
 		startBtn.setVisible(false);
@@ -333,10 +342,11 @@ public class TheBeat extends JFrame implements MouseListener {
 		startBtn.setBorderPainted(false);
 		startBtn.setContentAreaFilled(false);
 		startBtn.setFocusPainted(false);
+		add(startBtn);
 	}
 
 	/**
-	 * right버튼 위치 등 설정
+	 * right버튼 위치 등 설정 후 add
 	 */
 	public void locateRightBtn() {
 		rightBtn.setVisible(false);
@@ -344,10 +354,11 @@ public class TheBeat extends JFrame implements MouseListener {
 		rightBtn.setBorderPainted(false);
 		rightBtn.setContentAreaFilled(false);
 		rightBtn.setFocusPainted(false);
+		add(rightBtn);
 	}
 
 	/**
-	 * left버튼 위치 등 설정
+	 * left버튼 위치 등 설정 후 add
 	 */
 	public void locateLeftBtn() {
 		leftBtn.setVisible(false);
@@ -355,6 +366,7 @@ public class TheBeat extends JFrame implements MouseListener {
 		leftBtn.setBorderPainted(false);
 		leftBtn.setContentAreaFilled(false);
 		leftBtn.setFocusPainted(false);
+		add(leftBtn);
 	}
 
 }
