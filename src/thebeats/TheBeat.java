@@ -59,8 +59,8 @@ public class TheBeat extends JFrame implements MouseListener {
 
 		trackList.add(new Track("track_elise.png", "track_elise_title.png", "selectedImg.png", "elise.mp3", "elise.mp3",
 				"elise"));
-		trackList.add(new Track("track_summer.png", "track_summer_title.png", "selectedImg.png", "twinkle.mp3",
-				"twinkle.mp3", "summer"));
+		trackList.add(new Track("track_littlestar.png", "track_littlestar_title.png", "selectedImg.png", "littlestar.mp3",
+				"littlestar.mp3", "littlestar"));
 		trackList.add(new Track("track_canon.png", "track_canon_title.png", "selectedImg.png", "canon.mp3",
 				"cannon.mp3", "canon"));
 
@@ -103,14 +103,13 @@ public class TheBeat extends JFrame implements MouseListener {
 
 		} else if (isResultScreen) {
 			g.drawImage(scoreImg, 100, 150, null);
+			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			g.setFont(new Font("Arial", Font.BOLD, 52));
 			g.setColor(Color.white);
 			g.drawString(String.valueOf(rank.getPerfect()), 920, 270);
 			g.drawString(String.valueOf(rank.getGood()), 920, 360);
 			g.drawString(String.valueOf(rank.getBad()), 920, 450);
 			g.drawString(String.valueOf(rank.getMiss()), 920, 540);
-			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			g.setFont(new Font("Arial", Font.BOLD, 52));
-			g.setColor(Color.white);
 		}
 		paintComponents(g);// JLabel같은 것을 JFrame 내에 추가하면 그려줌 항상 고정된 것을 그릴때 사용
 		this.repaint();// 다시 paint()를 불러옴 전체화면 이미지를 매순간마다 프로그램이 종료되는 순간까지 그려줌
