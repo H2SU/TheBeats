@@ -22,11 +22,8 @@ public class TheBeat extends JFrame implements MouseListener {
 	private Rank rank;
 
 	private Graphics screenGraphic;
-
-	private JButton startBtn;
-	private JButton exitBtn;
-	private JButton rightBtn;
-	private JButton leftBtn;
+	
+	private Button btns; //버튼들
 
 	private Image background;
 	private Image screenImage;
@@ -49,9 +46,7 @@ public class TheBeat extends JFrame implements MouseListener {
 		introMusic.start();
 		addKeyListener(new MyKeyListener(this)); // 키 리스너 등록하면서 현재 객체의 참조도 같이보냄
 		background = new ImageIcon(Main.class.getResource("../images/background_intro.png")).getImage();
-		initBtn();
-		initListener();
-		initLocateBtn();
+		btns = new Button(this);
 		setUndecorated(true);
 		setFocusable(true);
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);// 상수를 이용하여 전체게임창 크기설정
@@ -86,21 +81,6 @@ public class TheBeat extends JFrame implements MouseListener {
 		return game;
 	}
 
-	// 버튼 등록
-	public void initBtn() {
-		exitBtn = new JButton(new ImageIcon(Main.class.getResource("../images/exit.png")));
-		startBtn = new JButton(new ImageIcon(Main.class.getResource("../images/btn_start.png")));
-		rightBtn = new JButton(new ImageIcon(Main.class.getResource("../images/btn_right.png")));
-		leftBtn = new JButton(new ImageIcon(Main.class.getResource("../images/btn_left.png")));
-	}
-
-	// 리스너 등록
-	private void initListener() {
-		exitBtn.addMouseListener(this);
-		startBtn.addMouseListener(this);
-		rightBtn.addMouseListener(this);
-		leftBtn.addMouseListener(this);
-	}
 
 	public void paint(Graphics g) { // JFrame을 상속받은 클래스에서 가장 첫번째로 화면을 그려주는 메소드
 		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
@@ -113,7 +93,7 @@ public class TheBeat extends JFrame implements MouseListener {
 		g.drawImage(background, 0, 0, null); // background이미지를 전체(스크린이미지)에 그려줌
 
 		if (isMainScreen) { // 메인화면일때.
-			changeBtnVisibility(true); // 버튼들 보이게 하기.
+			btns.changeBtnVisibility(true); // 버튼들 보이게 하기.
 			setFocusable(false);
 			g.drawImage(selectedImg, 340, 100, null);// 선택된 음악의 이미지
 			g.drawImage(titleImg, 340, 600, null);
@@ -187,7 +167,7 @@ public class TheBeat extends JFrame implements MouseListener {
 
 		isMainScreen = false;
 		isGameScreen = true;
-		changeBtnVisibility(false); // 버튼 다 안보이게 하기.
+		btns.changeBtnVisibility(false); // 버튼 다 안보이게 하기.
 
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImg()))
 				.getImage();
@@ -227,12 +207,6 @@ public class TheBeat extends JFrame implements MouseListener {
 
 	}
 
-	// 버튼 가시상태 변경 메소드
-	public void changeBtnVisibility(boolean state) {
-		startBtn.setVisible(state);
-		rightBtn.setVisible(state);
-		leftBtn.setVisible(state);
-	}
 
 	/**
 	 * 마우스 리스너
@@ -251,12 +225,12 @@ public class TheBeat extends JFrame implements MouseListener {
 		Music btnEnteredMusic = new Music("buttonEnteredMusic.mp3", false);
 		btnEnteredMusic.start();
 
-		if (source == startBtn) {
-			startBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		} else if (source == rightBtn) {
-			rightBtn.setIcon(new ImageIcon(Main.class.getResource("../images/btn_right2.png")));
-		} else if (source == leftBtn) {
-			leftBtn.setIcon(new ImageIcon(Main.class.getResource("../images/btn_left2.png")));
+		if (source == btns.getStartBtn()) {
+			btns.getStartBtn().setCursor(new Cursor(Cursor.HAND_CURSOR));
+		} else if (source == btns.getRightBtn()) {
+			btns.getRightBtn().setIcon(new ImageIcon(Main.class.getResource("../images/btn_right2.png")));
+		} else if (source == btns.getLeftBtn()) {
+			btns.getLeftBtn().setIcon(new ImageIcon(Main.class.getResource("../images/btn_left2.png")));
 		}
 
 	}
@@ -266,10 +240,10 @@ public class TheBeat extends JFrame implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		Object source = e.getSource();
 
-		if (source == rightBtn) {
-			rightBtn.setIcon(new ImageIcon(Main.class.getResource("../images/btn_right.png")));
-		} else if (source == leftBtn) {
-			leftBtn.setIcon(new ImageIcon(Main.class.getResource("../images/btn_left.png")));
+		if (source ==btns.getRightBtn()) {
+			btns.getRightBtn().setIcon(new ImageIcon(Main.class.getResource("../images/btn_right.png")));
+		} else if (source == btns.getLeftBtn()) {
+			btns.getLeftBtn().setIcon(new ImageIcon(Main.class.getResource("../images/btn_left.png")));
 		}
 	}
 
@@ -277,7 +251,7 @@ public class TheBeat extends JFrame implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		Object source = e.getSource();
 
-		if (source == exitBtn) {
+		if (source == btns.getExitBtn()) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException ex) {
@@ -286,7 +260,7 @@ public class TheBeat extends JFrame implements MouseListener {
 			System.exit(0); // 프로그램 종료
 		}
 
-		else if (source == leftBtn) { // 왼쪽 버튼 클릭
+		else if (source == btns.getLeftBtn()) { // 왼쪽 버튼 클릭
 			if (nowSelected > 0) {
 				selectTrack(--nowSelected);
 
@@ -295,14 +269,14 @@ public class TheBeat extends JFrame implements MouseListener {
 
 		}
 
-		else if (source == rightBtn) { // 오른쪽 버튼 클릭
+		else if (source == btns.getRightBtn()) { // 오른쪽 버튼 클릭
 			if (nowSelected < trackList.size() - 1) {
 				selectTrack(++nowSelected);
 
 			} else
 				selectTrack(nowSelected = 0);
 
-		} else if (source == startBtn) {
+		} else if (source == btns.getStartBtn()) {
 			Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
 			buttonEnteredMusic.start();
 			startGame(nowSelected);
@@ -314,59 +288,6 @@ public class TheBeat extends JFrame implements MouseListener {
 	public void mouseReleased(MouseEvent e) {
 	}
 
-	// 버튼 위치 지정 메소드 호출
-	private void initLocateBtn() {
-		locateExitBtn();
-		locateStartBtn();
-		locateRightBtn();
-		locateLeftBtn();
-	}
 
-	/**
-	 * exit버튼 위치 등 설정 후 add
-	 */
-	public void locateExitBtn() {
-		exitBtn.setBounds(1170, 0, 120, 60);// 나가기 버튼의 위치와 크기설정 메뉴바의 가장 오른쪽에 위치
-		exitBtn.setBorderPainted(false);
-		exitBtn.setContentAreaFilled(false);
-		exitBtn.setFocusPainted(false); // 생각한 형태로 이미지가 나오도록 설정
-		add(exitBtn);
-	}
-
-	/**
-	 * start버튼 위치 등 설정 후 add
-	 */
-	public void locateStartBtn() {
-		startBtn.setVisible(false);
-		startBtn.setBounds(1104, 540, 180, 180);
-		startBtn.setBorderPainted(false);
-		startBtn.setContentAreaFilled(false);
-		startBtn.setFocusPainted(false);
-		add(startBtn);
-	}
-
-	/**
-	 * right버튼 위치 등 설정 후 add
-	 */
-	public void locateRightBtn() {
-		rightBtn.setVisible(false);
-		rightBtn.setBounds(965, 310, 120, 120);
-		rightBtn.setBorderPainted(false);
-		rightBtn.setContentAreaFilled(false);
-		rightBtn.setFocusPainted(false);
-		add(rightBtn);
-	}
-
-	/**
-	 * left버튼 위치 등 설정 후 add
-	 */
-	public void locateLeftBtn() {
-		leftBtn.setVisible(false);
-		leftBtn.setBounds(200, 310, 120, 120);
-		leftBtn.setBorderPainted(false);
-		leftBtn.setContentAreaFilled(false);
-		leftBtn.setFocusPainted(false);
-		add(leftBtn);
-	}
 
 }

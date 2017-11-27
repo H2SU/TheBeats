@@ -188,7 +188,7 @@ public class Game extends Thread {
 		beats = null;
 		if (titleName.equals("summer")) {
 			int startTime = 1000 - Main.REACH_TIME * 1000;
-			int gap = 125;
+			int gap = 500;
 			beats = new NoteBeat[] { new NoteBeat(startTime + gap * 2, 'J'), new NoteBeat(startTime + gap * 4, 'S'),
 					new NoteBeat(startTime + gap * 6, 'J'), new NoteBeat(startTime + gap * 8, 'K'),
 					new NoteBeat(startTime + gap * 10, 'D'), new NoteBeat(startTime + gap * 12, 'K'),
