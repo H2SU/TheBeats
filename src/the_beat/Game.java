@@ -171,19 +171,86 @@ public class Game extends Thread {
 	public void dropNotes() {
 		NoteBeat[] beats = null;
 		if (titleName.equals("elise")) {
-			int startTime = 1000 - Main.REACH_TIME * 1000;
-			int gap = 125;
+			int startTime = 4950;
+			int gap = 250;
 			beats = new NoteBeat[] { 
-					new NoteBeat(startTime + gap * 2, "K"), new NoteBeat(startTime + gap * 4, "S"),
-					new NoteBeat(startTime + gap * 6, "J"), new NoteBeat(startTime + gap * 8, "S"),
-					new NoteBeat(startTime + gap * 10, "F"), new NoteBeat(startTime + gap * 12, "J"),
-					new NoteBeat(startTime + gap * 14, "S"), new NoteBeat(startTime + gap * 16, "K"),
-					new NoteBeat(startTime + gap * 18, "F"), new NoteBeat(startTime + gap * 20, "L"),
-					new NoteBeat(startTime + gap * 22, "F"), new NoteBeat(startTime + gap * 24, "S"),
-					new NoteBeat(startTime + gap * 26, "L"), new NoteBeat(startTime + gap * 28, "D"),
-					new NoteBeat(startTime + gap * 30, "F"),
-	
-
+					new NoteBeat(startTime + gap * 1 , "S"), 
+					new NoteBeat(startTime + gap * 2, "J"),
+					new NoteBeat(startTime + gap * 3, "L"), 
+					new NoteBeat(startTime + gap * 4, "J"),
+					new NoteBeat(startTime + gap * 5, "S"),
+					
+					new NoteBeat(startTime + gap * 8, "J"),
+					new NoteBeat(startTime + gap * 9, "L"), 
+					new NoteBeat(startTime + gap * 11, "J"),
+					
+					new NoteBeat(startTime + gap * 15, "L"), 
+					new NoteBeat(startTime + gap * 16, "S"),
+					new NoteBeat(startTime + gap * 18, "S"), 
+					new NoteBeat(startTime + gap * 19, "L"),
+					new NoteBeat(startTime + gap * 21, "J"), 
+					
+					new NoteBeat(startTime + gap * 23, "F"),
+					
+					new NoteBeat(startTime + gap * 30, "S"),
+					new NoteBeat(startTime + gap * 31, "J"),
+					new NoteBeat(startTime + gap * 32, "L"),
+					new NoteBeat(startTime + gap * 33, "J"),
+					new NoteBeat(startTime + gap * 34, "S"),
+					
+					new NoteBeat(startTime + gap * 37, "J"),
+					new NoteBeat(startTime + gap * 38, "L"),
+					new NoteBeat(startTime + gap * 40, "J"),
+					
+					new NoteBeat(startTime + gap * 44, "J"),
+					new NoteBeat(startTime + gap * 45, "S"),
+					new NoteBeat(startTime + gap * 47, "S"),
+					new NoteBeat(startTime + gap * 48, "D"),
+					new NoteBeat(startTime + gap * 50, "F"),
+		
+					new NoteBeat(startTime + gap * 52, "J"),
+					
+					new NoteBeat(startTime + gap * 59, "D"),
+					new NoteBeat(startTime + gap * 60, "D"),
+					new NoteBeat(startTime + gap * 61, "D"),
+					new NoteBeat(startTime + gap * 62, "J"),
+					new NoteBeat(startTime + gap * 63, "D"),
+					
+					new NoteBeat(startTime + gap * 67, "L"),
+					new NoteBeat(startTime + gap * 68, "L"),
+					new NoteBeat(startTime + gap * 69, "L"),
+					new NoteBeat(startTime + gap * 70, "K"),
+					new NoteBeat(startTime + gap * 71, "J"),
+					
+					new NoteBeat(startTime + gap * 80, "K"),
+					new NoteBeat(startTime + gap * 81, "K"),
+					new NoteBeat(startTime + gap * 83, "K"),
+					new NoteBeat(startTime + gap * 84, "K"),
+					new NoteBeat(startTime + gap * 86, "L"),
+					
+					new NoteBeat(startTime + gap * 88, "K"),
+					
+					new NoteBeat(startTime + gap * 96, "L"),
+					new NoteBeat(startTime + gap * 98, "L"),
+					new NoteBeat(startTime + gap * 100, "J"),
+					new NoteBeat(startTime + gap * 101, "J"),
+					new NoteBeat(startTime + gap * 103, "J"),
+					
+					new NoteBeat(startTime + gap * 105, "K"),
+					new NoteBeat(startTime + gap * 106, "K"),
+					new NoteBeat(startTime + gap * 107, "J"),
+					new NoteBeat(startTime + gap * 108, "F"),
+					new NoteBeat(startTime + gap * 110, "D"),
+					new NoteBeat(startTime + gap * 111, "D"),
+					
+					new NoteBeat(startTime + gap * 113, "S"),
+					new NoteBeat(startTime + gap * 114, "L"),
+					new NoteBeat(startTime + gap * 115, "J"),
+					new NoteBeat(startTime + gap * 116, "K"),
+					new NoteBeat(startTime + gap * 118, "K"),
+					
+					new NoteBeat(startTime + gap * 120, "J"),
+					
 			};
 			notesize=beats.length;
 			System.out.println(notesize);
