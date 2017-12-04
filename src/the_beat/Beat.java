@@ -54,9 +54,9 @@ public class Beat extends JFrame {
 	public static Game game;
 
 	public Beat() {
-		trackList.add(new Track("elise1.png", "eliseselect.png",
-				"selectedImage.png", "elise.mp3", "elise.mp3", "elise"));//0
-		trackList.add(new Track("summer1.png", "summerselect.png",
+		trackList.add(new Track("Little_Star2.png", "Little_Star.png",
+				"selectedImage.png", "Twinkle_Twinkle_Little_Star.mp3", "Little_Star.mp3", "elise"));//0
+		trackList.add(new Track("Cotton_Candy1.png", "Cotton_Candy_selected.png",
 				"selectedImage.png", "summer.mp3", "summer.mp3", "summer"));//1
 		trackList.add(new Track("canon1.png", "canonselect.png",
 				"selectedImage.png", "canon.mp3", "canon.mp3", "canon"));//2
