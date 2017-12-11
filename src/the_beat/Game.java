@@ -12,33 +12,42 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 
 public class Game extends Thread {
+
+	private TheBeat thebeat;
+
 	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameInfo.png")).getImage();
-	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgementLine.png")).getImage();
-	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/noteRouteLine.png")).getImage();
-	private Image noteRouteSImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-	private Image noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-	private Image noteRouteFImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-	private Image noteRouteJImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-	private Image noteRouteKImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-	private Image noteRouteLImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgeLine.png")).getImage();
+	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/note_routeLine.png")).getImage();
+
+	private Image comboImg = null;
+	private Image noteRouteSImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+	private Image noteRouteDImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+	private Image noteRouteFImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+	private Image noteRouteJImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+	private Image noteRouteKImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+	private Image noteRouteLImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+	private Image flareImage;
 	private Image judgeImage;
-	
-	static int notesize = 0;
-	static Note a ;
+
 	private String titleName;
 	private String musicTitle;
-	private static Music gameMusic;
-	private NoteBeat[] beats = null;
-	static String result;
+	private Music gameMusic;
 
-	private static Judge judge;
+	private String combo = "";
+	private int cb = 0;
+
+	private Rank rank; // 판단
+	private int count = 0;
+
+	private NoteBeat[] beats = null;
 
 	ArrayList<Note> noteList = new ArrayList<Note>();
 
-	public Game(String titleName, String musicTitle) {
+	public Game(String titleName, String musicTitle, TheBeat thebeat) {
 		this.titleName = titleName;
 		this.musicTitle = musicTitle;
-		gameMusic = new Music(this.musicTitle, false);
+		this.thebeat = thebeat;
+		this.gameMusic = new Music(this.musicTitle, false);
 	}
 
 	public void screenDraw(Graphics2D g) {
@@ -57,14 +66,22 @@ public class Game extends Thread {
 		g.drawImage(noteRouteLineImage, 744, 30, null);
 		g.drawImage(gameInfoImage, 0, 660, null);
 		g.drawImage(judgementLineImage, 0, 580, null);
-		g.drawImage(judgeImage, 360, 420, null);
+		g.drawImage(flareImage, 360, 430, null);
+		g.drawImage(judgeImage, 360, 400, null);
 
 		for (int i = 0; i < noteList.size(); i++) {
 			Note note = noteList.get(i);
-			a=note;
-			if (note.getY() > 620) {
+			if (note.getY() >= 620) {
 				judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
-				judge.plusScore("miss");
+				rank.plusScore("Miss");
+				resetCombo();
+
+				if (count == beats.length - 1) { // 노트의 갯수만큼 이 메소드가 호출되었으면 게임 종료.
+					System.out.println("이 것은 걍지나간곳에서호출");
+					gameEnd();
+				} else
+					++count; // 호출횟수 증가
+
 			}
 			if (!note.isProceeded()) {
 				noteList.remove(i);
@@ -73,82 +90,92 @@ public class Game extends Thread {
 				note.screenDraw(g);
 			}
 		}
-
 		g.setColor(Color.white);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g.setFont(new Font("Arial", Font.BOLD, 30));
 		g.drawString(titleName, 20, 702);
 		g.setColor(Color.DARK_GRAY);
-		g.drawString("S", 270, 615);
-		g.drawString("D", 374, 615);
-		g.drawString("F", 478, 615);
-		g.drawString("J", 572, 615);
-		g.drawString("K", 676, 615);
-		g.drawString("L", 780, 615);
+		g.drawString("S", 270, 620);
+		g.drawString("D", 374, 620);
+		g.drawString("F", 478, 620);
+		g.drawString("J", 572, 620);
+		g.drawString("K", 676, 620);
+		g.drawString("L", 780, 620);
+		g.setFont(new Font("Arial", Font.BOLD, 52));
+		g.setColor(Color.white);
+		g.drawString(combo, 1040, 400);
+		g.drawImage(comboImg, 870, 250, null);
 
 	}
 
-	public void pressS() {
-		judge("S");
-		noteRouteSImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
+	/**
+	 * 키 눌렀을때
+	 *
+	 * @param key
+	 */
+	public void pressdKey(char key) {
+		judge(key); // judge호출
+
+		switch (key) {
+		case 'S':
+			noteRouteSImage = new ImageIcon(Main.class.getResource("../images/note_routePressed.png")).getImage();
+			break;
+		case 'D':
+			noteRouteDImage = new ImageIcon(Main.class.getResource("../images/note_routePressed.png")).getImage();
+			break;
+		case 'F':
+			noteRouteFImage = new ImageIcon(Main.class.getResource("../images/note_routePressed.png")).getImage();
+			break;
+		case 'J':
+			noteRouteJImage = new ImageIcon(Main.class.getResource("../images/note_routePressed.png")).getImage();
+			break;
+		case 'K':
+			noteRouteKImage = new ImageIcon(Main.class.getResource("../images/note_routePressed.png")).getImage();
+			break;
+		case 'L':
+			noteRouteLImage = new ImageIcon(Main.class.getResource("../images/note_routePressed.png")).getImage();
+			break;
+		}
+
 	}
 
-	public void releaseS() {
-		noteRouteSImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-	}
-
-	public void pressD() {
-		judge("D");
-		noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
-	}
-
-	public void releaseD() {
-		noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-	}
-
-	public void pressF() {
-		judge("F");
-		noteRouteFImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
-	}
-
-	public void releaseF() {
-		noteRouteFImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-	}
-
-	public void pressJ() {
-		judge("J");
-		noteRouteJImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
-	}
-
-	public void releaseJ() {
-		noteRouteJImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-	}
-
-	public void pressK() {
-		judge("K");
-		noteRouteKImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
-	}
-
-	public void releaseK() {
-		noteRouteKImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-	}
-
-	public void pressL() {
-		judge("L");
-		noteRouteLImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
-	}
-
-	public void releaseL() {
-		noteRouteLImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	/**
+	 * 키 뗐을 때
+	 *
+	 * @param key
+	 */
+	public void releasedKey(char key) {
+		switch (key) {
+		case 'S':
+			noteRouteSImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+			break;
+		case 'D':
+			noteRouteDImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+			break;
+		case 'F':
+			noteRouteFImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+			break;
+		case 'J':
+			noteRouteJImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+			break;
+		case 'K':
+			noteRouteKImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+			break;
+		case 'L':
+			noteRouteLImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
+			break;
+		}
 	}
 
 	@Override
 	public void run() {
 		dropNotes();
-		
 	}
 
-	public static void gameEnd() {
+	/**
+	 * 게임 끝났을 때. 3초 지연.
+	 */
+	public void gameEnd() {
 		Timer tm = new Timer();
 		TimerTask tt = new TimerTask() {
 			@Override
@@ -159,102 +186,175 @@ public class Game extends Thread {
 		tm.schedule(tt, 3000);
 	}
 
-	public static  void close() {
-		result = judge.calculateGrade();
-		
-		System.out.println("끝" + result);
+	public void close() {
+		System.out.println("끝: " + rank.calculateGrade());
 		gameMusic.close();
-		//this.interrupt();
-		Beat.resultMain();
+		this.interrupt();
+
+		thebeat.endGame(rank);
 	}
 
 	public void dropNotes() {
-		NoteBeat[] beats = null;
-		if (titleName.equals("elise")) {
+		beats = null;
+		if (titleName.equals("littlestar")) {
 			int startTime = 350;
 			int gap = 500;
-			beats = new NoteBeat[] { 
-					new NoteBeat(startTime + gap, "S"),
-					new NoteBeat(startTime + gap*2, "S"),
-					new NoteBeat(startTime + gap*3, "K"),
-					new NoteBeat(startTime + gap*4, "K"),
-					new NoteBeat(startTime + gap*5, "L"),
-					new NoteBeat(startTime + gap*6, "L"),
-					new NoteBeat(startTime + gap*7, "K"),
-					
-					new NoteBeat(startTime + gap*9, "J"),
-					new NoteBeat(startTime + gap*10, "J"),
-					new NoteBeat(startTime + gap*11, "F"),
-					new NoteBeat(startTime + gap*12, "F"),
-					new NoteBeat(startTime + gap*13, "D"),
-					new NoteBeat(startTime + gap*14, "D"),
-					new NoteBeat(startTime + gap*15, "S"),
-					
-					new NoteBeat(startTime + gap*17, "K"),
-					new NoteBeat(startTime + gap*18, "K"),
-					new NoteBeat(startTime + gap*19, "J"),
-					new NoteBeat(startTime + gap*20, "J"),
-					new NoteBeat(startTime + gap*21, "F"),
-					new NoteBeat(startTime + gap*22, "F"),
-					new NoteBeat(startTime + gap*23, "D"),
-					
-					new NoteBeat(startTime + gap*25, "K"),
-					new NoteBeat(startTime + gap*26, "K"),
-					new NoteBeat(startTime + gap*27, "F"),
-					new NoteBeat(startTime + gap*28, "F"),
-					new NoteBeat(startTime + gap*29, "D"),
-					new NoteBeat(startTime + gap*30, "D"),
-					new NoteBeat(startTime + gap*31, "S"),
-					
-					new NoteBeat(startTime + gap*33, "S"),
-					new NoteBeat(startTime + gap*34, "S"),
-					new NoteBeat(startTime + gap*35, "K"),
-					new NoteBeat(startTime + gap*36, "K"),
-					new NoteBeat(startTime + gap*37, "L"),
-					new NoteBeat(startTime + gap*38, "L"),
-					new NoteBeat(startTime + gap*39, "K"),
-					
-					new NoteBeat(startTime + gap*41, "J"),
-					new NoteBeat(startTime + gap*42, "J"),
-					new NoteBeat(startTime + gap*43, "F"),
-					new NoteBeat(startTime + gap*44, "F"),
-					new NoteBeat(startTime + gap*45, "D"),
-					new NoteBeat(startTime + gap*46, "D"),
-					new NoteBeat(startTime + gap*47, "S"),
-			};
-			notesize=beats.length;
-			System.out.println(notesize);
-
-		} else if (titleName.equals("summer")) {
-			int startTime = 1000 - Main.REACH_TIME * 1000;
-			int gap = 125;
-			beats = new NoteBeat[] { new NoteBeat(startTime + gap * 4, "S"), new NoteBeat(startTime + gap * 8, "K"),
-					new NoteBeat(startTime + gap * 13, "D"), new NoteBeat(startTime + gap * 16, "K"),
-					new NoteBeat(startTime + gap * 19, "D"), new NoteBeat(startTime + gap * 22, "L"),
-					new NoteBeat(startTime + gap * 24, "D"), new NoteBeat(startTime + gap * 26, "L"),
-					new NoteBeat(startTime + gap * 28, "D"), new NoteBeat(startTime + gap * 30, "L"),
-
+			beats = new NoteBeat[] { new NoteBeat(startTime + gap, 'S'), new NoteBeat(startTime + gap * 2, 'S'),
+					new NoteBeat(startTime + gap * 3, 'K'), new NoteBeat(startTime + gap * 4, 'K'),
+					new NoteBeat(startTime + gap * 5, 'L'), new NoteBeat(startTime + gap * 6, 'L'),
+					new NoteBeat(startTime + gap * 7, 'K'), new NoteBeat(startTime + gap * 9, 'J'),
+					new NoteBeat(startTime + gap * 10, 'J'), new NoteBeat(startTime + gap * 11, 'F'),
+					new NoteBeat(startTime + gap * 12, 'F'), new NoteBeat(startTime + gap * 13, 'D'),
+					new NoteBeat(startTime + gap * 14, 'D'), new NoteBeat(startTime + gap * 15, 'S'),
+					new NoteBeat(startTime + gap * 17, 'K'), new NoteBeat(startTime + gap * 18, 'K'),
+					new NoteBeat(startTime + gap * 19, 'J'), new NoteBeat(startTime + gap * 20, 'J'),
+					new NoteBeat(startTime + gap * 21, 'F'), new NoteBeat(startTime + gap * 22, 'F'),
+					new NoteBeat(startTime + gap * 23, 'D'), new NoteBeat(startTime + gap * 25, 'K'),
+					new NoteBeat(startTime + gap * 26, 'K'), new NoteBeat(startTime + gap * 27, 'F'),
+					new NoteBeat(startTime + gap * 28, 'F'), new NoteBeat(startTime + gap * 29, 'D'),
+					new NoteBeat(startTime + gap * 30, 'D'), new NoteBeat(startTime + gap * 31, 'S'),
+					new NoteBeat(startTime + gap * 33, 'S'), new NoteBeat(startTime + gap * 34, 'S'),
+					new NoteBeat(startTime + gap * 35, 'K'), new NoteBeat(startTime + gap * 36, 'K'),
+					new NoteBeat(startTime + gap * 37, 'L'), new NoteBeat(startTime + gap * 38, 'L'),
+					new NoteBeat(startTime + gap * 39, 'K'), new NoteBeat(startTime + gap * 41, 'J'),
+					new NoteBeat(startTime + gap * 42, 'J'), new NoteBeat(startTime + gap * 43, 'F'),
+					new NoteBeat(startTime + gap * 44, 'F'), new NoteBeat(startTime + gap * 45, 'D'),
+					new NoteBeat(startTime + gap * 46, 'D'), new NoteBeat(startTime + gap * 47, 'S'),
 
 			};
-			notesize=beats.length;
-			System.out.println(notesize);
-
-		} else if (titleName.equals("canon")) {
-			int startTime = 1000 - Main.REACH_TIME * 1000;
-			int gap = 125;
-			beats = new NoteBeat[] { new NoteBeat(startTime + gap * 10, "K"), new NoteBeat(startTime + gap * 22, "F"),
-					new NoteBeat(startTime + gap * 33, "J"), new NoteBeat(startTime + gap * 45, "D"),
-					new NoteBeat(startTime + gap * 54, "J"), new NoteBeat(startTime + gap * 66, "K"),
-					
-
-			};
-			notesize=beats.length;
-			System.out.println(notesize);
-
 		}
+		if (titleName.equals("cottonCandy")) {
+			int startTime = 4950;
+			int gap= 248;
+			int gap2 = 124;
+
+			beats = new NoteBeat[] {
+					new NoteBeat(startTime + gap * 1 , 'S'),
+					new NoteBeat(startTime + gap * 2, 'J'),
+					new NoteBeat(startTime + gap * 3, 'L'),
+					new NoteBeat(startTime + gap * 4, 'J'),
+					new NoteBeat(startTime + gap * 5, 'S'),
+
+					new NoteBeat(startTime + gap * 8, 'J'),
+					new NoteBeat(startTime + gap * 9, 'L'),
+					new NoteBeat(startTime + gap * 11, 'J'),
+
+					new NoteBeat(startTime + gap * 15, 'L'),
+					new NoteBeat(startTime + gap * 16, 'S'),
+					new NoteBeat(startTime + gap * 18, 'S'),
+					new NoteBeat(startTime + gap * 19, 'L'),
+					new NoteBeat(startTime + gap * 21, 'J'),
+
+					new NoteBeat(startTime + gap * 23, 'F'),
+
+					new NoteBeat(startTime + gap * 30, 'S'),
+					new NoteBeat(startTime + gap * 31, 'J'),
+					new NoteBeat(startTime + gap * 32, 'L'),
+					new NoteBeat(startTime + gap * 33, 'J'),
+					new NoteBeat(startTime + gap * 34, 'S'),
+
+					new NoteBeat(startTime + gap * 37, 'J'),
+					new NoteBeat(startTime + gap * 38, 'L'),
+					new NoteBeat(startTime + gap * 40, 'J'),
+
+					new NoteBeat(startTime + gap * 44, 'J'),
+					new NoteBeat(startTime + gap * 45, 'S'),
+					new NoteBeat(startTime + gap * 47, 'S'),
+					new NoteBeat(startTime + gap * 48, 'D'),
+					new NoteBeat(startTime + gap * 50, 'F'),
+
+					new NoteBeat(startTime + gap * 52, 'J'),
+
+					new NoteBeat(startTime + gap2 * 118, 'D'),
+					new NoteBeat(startTime + gap2 * 120, 'D'),
+					new NoteBeat(startTime + gap2 * 122, 'D'),
+					new NoteBeat(startTime + gap2 * 124, 'J'),
+					new NoteBeat(startTime + gap2 * 126  , 'D'),
+
+					new NoteBeat(startTime + gap2 * 133, 'L'),
+					new NoteBeat(startTime + gap2 * 135, 'L'),
+					new NoteBeat(startTime + gap2 * 137, 'L'),
+					new NoteBeat(startTime + gap2 * 139, 'K'),
+					new NoteBeat(startTime + gap2 * 141, 'J'),
+
+					new NoteBeat(startTime + gap2 * 146, 'K'),
+					new NoteBeat(startTime + gap2 * 148, 'K'),
+					new NoteBeat(startTime + gap2 * 152, 'K'),
+					new NoteBeat(startTime + gap2 * 154, 'K'),
+					new NoteBeat(startTime + gap2 * 158, 'L'),
+
+					new NoteBeat(startTime + gap2 * 162, 'K'),
+
+					new NoteBeat(startTime + gap2 * 175, 'L'),
+					new NoteBeat(startTime + gap2 * 179, 'L'),
+					new NoteBeat(startTime + gap2 * 183, 'J'),
+					new NoteBeat(startTime + gap2 * 185, 'J'),
+					new NoteBeat(startTime + gap2 * 188, 'J'),
+
+					new NoteBeat(startTime + gap2 * 191, 'K'),
+					new NoteBeat(startTime + gap2 * 193, 'K'),
+					new NoteBeat(startTime + gap2 * 195, 'J'),
+					new NoteBeat(startTime + gap2 * 197, 'F'),
+					new NoteBeat(startTime + gap2 * 201, 'D'),
+					new NoteBeat(startTime + gap2 * 203, 'D'),
+
+					new NoteBeat(startTime + gap2 * 206, 'S'),
+					new NoteBeat(startTime + gap2 * 208, 'L'),
+					new NoteBeat(startTime + gap2 * 210, 'J'),
+					new NoteBeat(startTime + gap2 * 212, 'K'),
+					new NoteBeat(startTime + gap2 * 216, 'K'),
+
+					new NoteBeat(startTime + gap2 * 220, 'J'),
+
+			};
+		}
+		if (titleName.equals("Jingle_Bells")) {
+			int startTime = 2000;
+			int gap= 248;
+
+			beats = new NoteBeat[] {
+					new NoteBeat(startTime + gap * 1 , 'S'),
+					new NoteBeat(startTime + gap * 2, 'J'),
+					new NoteBeat(startTime + gap * 3, 'L'),
+					new NoteBeat(startTime + gap * 4, 'J'),
+					new NoteBeat(startTime + gap * 5, 'S'),
+
+					new NoteBeat(startTime + gap * 8, 'J'),
+					new NoteBeat(startTime + gap * 9, 'L'),
+					new NoteBeat(startTime + gap * 11, 'J'),
+
+					new NoteBeat(startTime + gap * 15, 'L'),
+					new NoteBeat(startTime + gap * 16, 'S'),
+					new NoteBeat(startTime + gap * 18, 'S'),
+					new NoteBeat(startTime + gap * 19, 'L'),
+					new NoteBeat(startTime + gap * 21, 'J'),
+
+					new NoteBeat(startTime + gap * 23, 'F'),
+
+					new NoteBeat(startTime + gap * 30, 'S'),
+					new NoteBeat(startTime + gap * 31, 'J'),
+					new NoteBeat(startTime + gap * 32, 'L'),
+					new NoteBeat(startTime + gap * 33, 'J'),
+					new NoteBeat(startTime + gap * 34, 'S'),
+
+					new NoteBeat(startTime + gap * 37, 'J'),
+					new NoteBeat(startTime + gap * 38, 'L'),
+					new NoteBeat(startTime + gap * 40, 'J'),
+
+					new NoteBeat(startTime + gap * 44, 'J'),
+					new NoteBeat(startTime + gap * 45, 'S'),
+					new NoteBeat(startTime + gap * 47, 'S'),
+					new NoteBeat(startTime + gap * 48, 'D'),
+					new NoteBeat(startTime + gap * 50, 'F'),
+
+					new NoteBeat(startTime + gap * 52, 'J'),
+			};
+		}
+
 		int i = 0;
-		judge = new Judge(beats.length);
-		gameMusic.start();
+		gameMusic.start(); // 음악 시작
+		rank = new Rank(beats.length);
+
 		while (i < beats.length && !isInterrupted()) {
 			boolean dropped = false;
 
@@ -274,32 +374,58 @@ public class Game extends Thread {
 
 			}
 		}
+
 	}
 
-	public void judge(String input) {
+	public void judge(char input) {
 
+		if (count == beats.length - 1) { // 노트의 갯수만큼 이 메소드가 호출되었으면 게임 종료.
+			System.out.println("이 것은 져지에서호출");
+			gameEnd();
+		}
 		for (int i = 0; i < noteList.size(); i++) {
 			Note note = noteList.get(i);
-			if (input.equals(note.getNoteType())) {
-				String s = "";
-				judgeEvent(s = note.judge());
-				judge.plusScore(s);
-			
+			if (input == note.getNoteType()) {
+				rank.plusScore(judgeEvent(note.judge())); // 점수 더하면서 judge판단하기
+				++count; // judge메소드가 호출된 횟수 증가시켜줌
 				break;
 			}
+
 		}
+
 	}
 
-	public void judgeEvent(String judge) {
+	// 콤보 리셋
+	public void resetCombo() {
+		comboImg = null;
+		combo = "";
+		cb = 0;
+
+	}
+
+	// 콤보일때
+	public void goCombo(String rank) {
+		comboImg = new ImageIcon(Main.class.getResource("../images/combo.png")).getImage();
+		combo = String.valueOf(++cb);
+	}
+
+	public String judgeEvent(String judge) {
 		if (judge.equals("Miss")) {
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			resetCombo();
 		} else if (judge.equals("Bad")) {
 			judgeImage = new ImageIcon(Main.class.getResource("../images/bad.png")).getImage();
+			goCombo(judge);
 		} else if (judge.equals("Good")) {
 			judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
+			goCombo(judge);
 		} else if (judge.equals("Perfect")) {
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			goCombo(judge);
 		}
 
+		return judge;
+
 	}
+
 }

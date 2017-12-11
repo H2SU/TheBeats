@@ -1,60 +1,75 @@
 package the_beat;
 
+
 public class Track {
 
-	private String titleImage; // 제목부분이미지
-	private String startImage; // 게임 선택 창 표지 이미지
-	private String gameImage; // 해당 곡을 실행했을 때의 표지 이미지
-	private String startMusic; // 게임 선택창 출력
+	private String albumImg; // 앨범 부분 이미지
+	private String titleImg; // 제목
+	private String gameImg; //
+	private String albumMusic; // 게임 선택 창 음악
 	private String gameMusic; // 해당 곡을 실행했을 때 음악
-	private String titleName; //곡 제목 담기 
-	
-	//해당 변수들에 대한 getter&setter
-	public String getTitleImage() {
-		return titleImage;
+	private String titleName;
+
+	public Track(){}
+
+	public Track(String albumImg, String titleImg, String gameImg, String albumMusic, String gameMusic, String titleName){
+		this.albumImg = albumImg;
+		this.titleImg = titleImg;
+		this.gameImg = gameImg;
+		this.albumMusic = albumMusic;
+		this.gameMusic = gameMusic;
+		this.titleName = titleName;
 	}
-	public void setTitleImage(String titleImage) {
-		this.titleImage = titleImage;
+
+
+	public String getTitleName() {
+		return titleName;
 	}
-	public String getStartImage() {
-		return startImage;
+
+	public void setTitleName(String titleName) {
+		this.titleName = titleName;
 	}
-	public void setStartImage(String startImage) {
-		this.startImage = startImage;
+
+	public String getAlbumImg() {
+		return albumImg;
 	}
-	public String getGameImage() {
-		return gameImage;
+
+	public void setAlbumImg(String albumImg) {
+		this.albumImg = albumImg;
 	}
-	public void setGameImage(String gameImage) {
-		this.gameImage = gameImage;
+
+	public String getTitleImg() {
+		return titleImg;
 	}
-	public String getStartMusic() {
-		return startMusic;
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
 	}
-	public void setStartMusic(String startMusic) {
-		this.startMusic = startMusic;
+
+	public String getAlbumMusic() {
+		return albumMusic;
 	}
+
+	public void setAlbumMusic(String albumMusic) {
+		this.albumMusic = albumMusic;
+	}
+
 	public String getGameMusic() {
 		return gameMusic;
 	}
+
 	public void setGameMusic(String gameMusic) {
 		this.gameMusic = gameMusic;
 	}
-	public String gettitleName() {
-		return titleName;
+
+	public String getGameImg() {
+		return gameImg;
 	}
-	public void settitleName(String titleName) {
-		this.titleName = titleName;
+
+	public void setGameImg(String gameImg) {
+		this.gameImg = gameImg;
 	}
-	//생성자
-	public Track(String titleImage, String startImage, String gameImage, String startMusic, String gameMusic, String titleName) {
-		super();
-		this.titleImage = titleImage;
-		this.startImage = startImage;
-		this.gameImage = gameImage;
-		this.startMusic = startMusic;
-		this.gameMusic = gameMusic;
-		this.titleName = titleName;
-	}
-	
+
+
+
 }
