@@ -57,7 +57,7 @@ public class Beat extends JFrame {
 		trackList.add(new Track("elise1.png", "eliseselect.png",
 				"selectedImage.png", "cottoncandy.mp3", "cottoncandy.mp3", "elise"));//0
 		trackList.add(new Track("summer1.png", "summerselect.png",
-				"selectedImage.png", "summer.mp3", "summer.mp3", "summer"));//1
+				"selectedImage.png", "JingleBells.mp3", "JingleBells.mp3", "summer"));//1
 		trackList.add(new Track("canon1.png", "canonselect.png",
 				"selectedImage.png", "canon.mp3", "canon.mp3", "canon"));//2
 
