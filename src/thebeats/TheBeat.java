@@ -52,10 +52,10 @@ public class TheBeat extends JFrame implements MouseListener {
 		btns.initButtons();
 		screen = new Screen(this); 
 		trackList.add(new Track("track_littlestar.png", "track_littlestar_title.png", "selectedImg.png",
-				"littlestar.mp3", "littlestar.mp3", "littlestar"));
+				"littlestar_cut.mp3", "littlestar.mp3", "littlestar"));
 		trackList.add(new Track("track_cottoncandy.png", "track_cottoncandy_title.png", "selectedImg.png", "cottoncandy.mp3", "cottoncandy.mp3",
 				"cottoncandy"));
-		trackList.add(new Track("track_jinglebell.png", "track_jinglebell_title.png", "selectedImg.png","jinglebell.mp3","jinglebell.mp3",
+		trackList.add(new Track("track_jinglebell.png", "track_jinglebell_title.png", "selectedImg.png","jinglebell_cut.mp3","jinglebell.mp3",
 				"jinglebell"));
 	}
 
