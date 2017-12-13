@@ -223,7 +223,7 @@ public class Game extends Thread {
 
 			};
 		}
-		if (titleName.equals("cottonCandy")) {
+		else if (titleName.equals("cottonCandy")) {
 			int startTime = 4950;
 			int gap= 248;
 			int gap2 = 124;
@@ -308,46 +308,108 @@ public class Game extends Thread {
 
 			};
 		}
-		if (titleName.equals("Jingle_Bells")) {
-			int startTime = 2000;
-			int gap= 248;
-
-			beats = new NoteBeat[] {
-					new NoteBeat(startTime + gap * 1 , 'S'),
-					new NoteBeat(startTime + gap * 2, 'J'),
-					new NoteBeat(startTime + gap * 3, 'L'),
-					new NoteBeat(startTime + gap * 4, 'J'),
-					new NoteBeat(startTime + gap * 5, 'S'),
-
-					new NoteBeat(startTime + gap * 8, 'J'),
-					new NoteBeat(startTime + gap * 9, 'L'),
-					new NoteBeat(startTime + gap * 11, 'J'),
-
-					new NoteBeat(startTime + gap * 15, 'L'),
-					new NoteBeat(startTime + gap * 16, 'S'),
-					new NoteBeat(startTime + gap * 18, 'S'),
-					new NoteBeat(startTime + gap * 19, 'L'),
-					new NoteBeat(startTime + gap * 21, 'J'),
-
-					new NoteBeat(startTime + gap * 23, 'F'),
-
-					new NoteBeat(startTime + gap * 30, 'S'),
-					new NoteBeat(startTime + gap * 31, 'J'),
-					new NoteBeat(startTime + gap * 32, 'L'),
-					new NoteBeat(startTime + gap * 33, 'J'),
-					new NoteBeat(startTime + gap * 34, 'S'),
-
-					new NoteBeat(startTime + gap * 37, 'J'),
-					new NoteBeat(startTime + gap * 38, 'L'),
-					new NoteBeat(startTime + gap * 40, 'J'),
-
-					new NoteBeat(startTime + gap * 44, 'J'),
-					new NoteBeat(startTime + gap * 45, 'S'),
-					new NoteBeat(startTime + gap * 47, 'S'),
-					new NoteBeat(startTime + gap * 48, 'D'),
-					new NoteBeat(startTime + gap * 50, 'F'),
-
-					new NoteBeat(startTime + gap * 52, 'J'),
+		else{
+			int startTime = 530;
+			int gap = 167;
+			beats = new NoteBeat[] { 
+					new NoteBeat(startTime + gap * 0 , 'D'), 
+					new NoteBeat(startTime + gap * 2 , 'L'),
+					new NoteBeat(startTime + gap * 4 , 'K'), 
+					new NoteBeat(startTime + gap * 6 , 'J'), 
+					new NoteBeat(startTime + gap * 8 , 'F'),  
+					new NoteBeat(startTime + gap * 14, 'S'), 
+					new NoteBeat(startTime + gap * 15, 'L'), 
+					new NoteBeat(startTime + gap * 16, 'K'), 
+					new NoteBeat(startTime + gap * 18, 'J'), 
+					new NoteBeat(startTime + gap * 20 , 'K'), 
+					new NoteBeat(startTime + gap * 22 , 'F'), 
+					new NoteBeat(startTime + gap * 24 , 'L'),
+					new NoteBeat(startTime + gap * 32 , 'J'),
+					new NoteBeat(startTime + gap * 34 , 'K'),
+					new NoteBeat(startTime + gap * 36 , 'L'), 
+					new NoteBeat(startTime + gap * 38 , 'L'), 
+					new NoteBeat(startTime + gap * 40 , 'K'),  
+					new NoteBeat(startTime + gap * 48 , 'J'), 
+					new NoteBeat(startTime + gap * 50 , 'L'), 
+					new NoteBeat(startTime + gap * 52 , 'D'), 
+					new NoteBeat(startTime + gap * 54 , 'L'), 
+					new NoteBeat(startTime + gap * 56 , 'K'),  
+					new NoteBeat(startTime + gap * 64 , 'J'), 
+					new NoteBeat(startTime + gap * 66 , 'K'), 
+					new NoteBeat(startTime + gap * 68 , 'S'), 
+					new NoteBeat(startTime + gap * 70 , 'K'), 
+					new NoteBeat(startTime + gap * 72 , 'J'), 
+					new NoteBeat(startTime + gap * 80 , 'D'), 
+					new NoteBeat(startTime + gap * 82 , 'L'), 
+					new NoteBeat(startTime + gap * 84 , 'L'), 
+					new NoteBeat(startTime + gap * 86 , 'L'), 
+					new NoteBeat(startTime + gap * 88 , 'L'), 
+					new NoteBeat(startTime + gap * 96 , 'L'), 
+					new NoteBeat(startTime + gap * 98 , 'K'), 
+					new NoteBeat(startTime + gap * 100 , 'J'), 
+					new NoteBeat(startTime + gap * 102, 'F'), 
+					new NoteBeat(startTime + gap * 104, 'D'), 
+					new NoteBeat(startTime + gap * 106, 'S'), 
+					new NoteBeat(startTime + gap * 108, 'S'), 
+					new NoteBeat(startTime + gap * 110, 'S'), 
+					new NoteBeat(startTime + gap * 112, 'F'), 
+					new NoteBeat(startTime + gap * 114, 'F'), 
+					new NoteBeat(startTime + gap * 116, 'F'), 
+					new NoteBeat(startTime + gap * 118, 'S'), 
+					new NoteBeat(startTime + gap * 120, 'D'), 
+					new NoteBeat(startTime + gap * 124, 'F'), 
+					new NoteBeat(startTime + gap * 128, 'K'), 
+					new NoteBeat(startTime + gap * 130, 'L'), 
+					new NoteBeat(startTime + gap * 132, 'J'), 
+					new NoteBeat(startTime + gap * 136, 'F'), 
+					new NoteBeat(startTime + gap * 138, 'J'), 
+					new NoteBeat(startTime + gap * 140, 'F'), 
+					new NoteBeat(startTime + gap * 144, 'D'), 
+					new NoteBeat(startTime + gap * 146, 'K'), 
+					new NoteBeat(startTime + gap * 148, 'D'), 
+					new NoteBeat(startTime + gap * 151, 'K'), 
+					new NoteBeat(startTime + gap * 152, 'L'), 
+					new NoteBeat(startTime + gap * 160, 'K'), 
+					new NoteBeat(startTime + gap * 162, 'J'), 
+					new NoteBeat(startTime + gap * 164, 'S'), 
+					new NoteBeat(startTime + gap * 167, 'D'), 
+					new NoteBeat(startTime + gap * 168, 'S'), 
+					new NoteBeat(startTime + gap * 170, 'S'), 
+					new NoteBeat(startTime + gap * 172, 'S'), 
+					new NoteBeat(startTime + gap * 174, 'F'), 
+					new NoteBeat(startTime + gap * 175, 'F'), 
+					new NoteBeat(startTime + gap * 176, 'F'), 
+					new NoteBeat(startTime + gap * 178, 'S'), 
+					new NoteBeat(startTime + gap * 180, 'K'), 
+					new NoteBeat(startTime + gap * 182, 'F'), 
+					new NoteBeat(startTime + gap * 184, 'K'), 
+					new NoteBeat(startTime + gap * 188, 'L'), 
+					new NoteBeat(startTime + gap * 192, 'L'), 
+					new NoteBeat(startTime + gap * 194, 'K'), 
+					new NoteBeat(startTime + gap * 196, 'L'), 
+					new NoteBeat(startTime + gap * 200, 'S'), 
+					new NoteBeat(startTime + gap * 202, 'D'), 
+					new NoteBeat(startTime + gap * 204, 'F'), 
+					new NoteBeat(startTime + gap * 208, 'D'), 
+					new NoteBeat(startTime + gap * 210, 'K'), 
+					new NoteBeat(startTime + gap * 212, 'J'), 
+					new NoteBeat(startTime + gap * 215, 'K'), 
+					new NoteBeat(startTime + gap * 216, 'L'), 
+					new NoteBeat(startTime + gap * 224, 'D'), 
+					new NoteBeat(startTime + gap * 226, 'F'), 
+					new NoteBeat(startTime + gap * 228, 'S'), 
+					new NoteBeat(startTime + gap * 231, 'J'), 
+					new NoteBeat(startTime + gap * 232, 'F'), 
+					new NoteBeat(startTime + gap * 234, 'D'), 
+					new NoteBeat(startTime + gap * 236, 'L'), 
+					new NoteBeat(startTime + gap * 238, 'J'), 
+					new NoteBeat(startTime + gap * 239, 'S'), 
+					new NoteBeat(startTime + gap * 240, 'K'), 
+					new NoteBeat(startTime + gap * 242, 'D'), 
+					new NoteBeat(startTime + gap * 244, 'L'), 
+					new NoteBeat(startTime + gap * 246, 'F'), 
+					new NoteBeat(startTime + gap * 248, 'S'), 
+					new NoteBeat(startTime + gap * 252, 'J'), 
 			};
 		}
 

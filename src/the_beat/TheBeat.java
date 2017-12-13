@@ -58,11 +58,11 @@ public class TheBeat extends JFrame implements MouseListener {
 		setVisible(true);// 게임창이 화면에 출력되도록 설정 default는 false
 
 
-		trackList.add(new Track("track_Little_Star.png", "track_little_Star1_title.png", "selectedImg.png", "Little_Star.mp3",
+		trackList.add(new Track("track_Little_Star.png", "track_little_Star1_title.png", "selectedImg.png", "Little_Star_cut.mp3",
 				"Little_Star.mp3", "littlestar"));
 		trackList.add(new Track("track_cottoncandy.png", "track_cottoncandy_title.png", "selectedImg.png", "cottonCandy.mp3",
 				"cottonCandy.mp3", "cottonCandy"));
-		trackList.add(new Track("track_cottoncandy.png", "track_cottoncandy_title.png", "selectedImg.png", "Jingle_Bells.mp3",
+		trackList.add(new Track("track_Jingle_Bells.png", "track_Jingle_Bells_title.png", "selectedImg.png", "Jingle_Bells_cut.mp3",
 				"Jingle_Bells.mp3", "Jingle_Bells"));
 
 	}
