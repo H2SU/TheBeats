@@ -104,15 +104,15 @@ public class TheBeat extends JFrame implements MouseListener {
 			game.screenDraw(g);
 
 		} else if (isResultScreen) {
-			g.drawImage(scoreImg, 100, 150, null);
-			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			g.setFont(new Font("Arial", Font.BOLD, 52));
-			g.setColor(Color.white);
-			g.drawString(String.valueOf(rank.getPerfect()), 920, 270);
-			g.drawString(String.valueOf(rank.getGood()), 920, 360);
-			g.drawString(String.valueOf(rank.getBad()), 920, 450);
-			g.drawString(String.valueOf(rank.getMiss()), 920, 540);
-		}
+	         g.drawImage(scoreImg, 80, 150, null);
+	         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+	         g.setFont(new Font("Arial", Font.BOLD, 50));
+	         g.setColor(Color.white);
+	         g.drawString(String.valueOf(rank.getPerfect()), 900, 270);
+	         g.drawString(String.valueOf(rank.getGood()), 900, 350);
+	         g.drawString(String.valueOf(rank.getBad()), 900, 430);
+	         g.drawString(String.valueOf(rank.getMiss()), 900, 520);
+	      }
 		paintComponents(g);// JLabel같은 것을 JFrame 내에 추가하면 그려줌 항상 고정된 것을 그릴때 사용
 		this.repaint();// 다시 paint()를 불러옴 전체화면 이미지를 매순간마다 프로그램이 종료되는 순간까지 그려줌
 	}
@@ -202,7 +202,6 @@ public class TheBeat extends JFrame implements MouseListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
 	}
 
 	// 마우스가 영역에 진입했을 때

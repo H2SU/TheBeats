@@ -80,33 +80,33 @@ public class Note extends Thread {
 	}
 
 	public String judge() {
-		if (y >= 620) {
-			close();
-			return "Miss";
-		} else if (y >= 610) {
-			close();
-			return "Bad";
+	      if (y >= 620) {
+	         close();
+	         return "Miss";
+	      } else if (y >= 605) {
+	         close();
+	         return "Bad";
 
-		} else if (y >= 590) {
-			close();
-			return "Good";
+	      } else if (y >= 590) {
+	         close();
+	         return "Good";
 
-		} else if (y >= 580) {
-			close();
-			return "Perfect";
+	      } else if (y >= 575) {
+	         close();
+	         return "Perfect";
 
-		} else if (y >= 565) {
-			close();
-			return "Good";
+	      } else if (y >= 555) {
+	         close();
+	         return "Good";
 
-		} else if (y >= 550) {
-			close();
-			return "Bad";
+	      } else if (y >= 540) {
+	         close();
+	         return "Bad";
 
-		}
-		return "None";
-	}
-
+	      }
+	      return "None";
+	   }
+	
 	public int getY() {
 		return y;
 	}

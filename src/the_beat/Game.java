@@ -26,7 +26,6 @@ public class Game extends Thread {
 	private Image noteRouteJImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
 	private Image noteRouteKImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
 	private Image noteRouteLImage = new ImageIcon(Main.class.getResource("../images/note_route.png")).getImage();
-	private Image flareImage;
 	private Image judgeImage;
 
 	private String titleName;
@@ -66,7 +65,7 @@ public class Game extends Thread {
 		g.drawImage(noteRouteLineImage, 744, 30, null);
 		g.drawImage(gameInfoImage, 0, 660, null);
 		g.drawImage(judgementLineImage, 0, 580, null);
-		g.drawImage(flareImage, 360, 430, null);
+		
 		g.drawImage(judgeImage, 360, 400, null);
 
 		for (int i = 0; i < noteList.size(); i++) {
